@@ -1,4 +1,5 @@
-package tp1;
+package tp1.avion;
+
 public class Asiento {
 
     private Boolean estadoDeAsiento;
