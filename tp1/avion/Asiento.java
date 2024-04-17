@@ -23,6 +23,9 @@ public class Asiento {
         this.estadoDeAsiento = estadoDeAsiento;                 // true para ocupado, false para libre
     }
     public Estado getEstadoDeAsiento() {
+
+
+
         return this.estadoDeAsiento ? Estado.OCUPADO : Estado.LIBRE;
     }
 
