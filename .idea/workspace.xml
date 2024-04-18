@@ -5,31 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e406aed1-dd79-474d-9311-f6ce65d5ae9a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PRACTICOS/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PRACTICOS/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PRACTICOS/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PRACTICOS/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PRACTICOS/PRACTICOS.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PRACTICOS/tp1/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PRACTICOS/tp1/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PRACTICOS/tp1/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PRACTICOS/tp1/.idea/practico1.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PRACTICOS/tp1/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PRACTICOS/tp1/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PRACTICOS/tp1/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PRACTICOS/tp1/avion/Asiento.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PRACTICOS/tp1/avion/Avion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PRACTICOS/tp1/avion/Estado.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Concurrente-TP1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Concurrente-TP1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Concurrente-TP1/tp1/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Concurrente-TP1/tp1/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Concurrente-TP1/tp1/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tp1/Lista.java" beforeDir="false" afterPath="$PROJECT_DIR$/tp1/Lista.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tp1/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/tp1/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tp1/ProcesoDeCancelacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/tp1/procesos/ProcesoDeCancelacion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tp1/ProcesoDePago.java" beforeDir="false" afterPath="$PROJECT_DIR$/tp1/procesos/ProcesoDePago.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tp1/ProcesoDeReserva.java" beforeDir="false" afterPath="$PROJECT_DIR$/tp1/procesos/ProcesoDeReserva.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tp1/ProcesoDeVerificacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/tp1/procesos/ProcesoDeVerificacion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tp1/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/tp1/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tp1/avion/Asiento.java" beforeDir="false" afterPath="$PROJECT_DIR$/tp1/avion/Asiento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tp1/avion/Avion.java" beforeDir="false" afterPath="$PROJECT_DIR$/tp1/avion/Avion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tp1/procesos/ProcesoDeReserva.java" beforeDir="false" afterPath="$PROJECT_DIR$/tp1/procesos/ProcesoDeReserva.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +40,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -98,7 +83,10 @@
       <workItem from="1712785786774" duration="108000" />
       <workItem from="1712850699868" duration="16000" />
       <workItem from="1712858621489" duration="54000" />
-      <workItem from="1713356890771" duration="1375000" />
+      <workItem from="1713356890771" duration="3042000" />
+      <workItem from="1713360578746" duration="1876000" />
+      <workItem from="1713363378494" duration="151000" />
+      <workItem from="1713443018408" duration="6675000" />
     </task>
     <servers />
   </component>

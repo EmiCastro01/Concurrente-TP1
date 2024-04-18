@@ -19,11 +19,20 @@ public class Lista {
     public ArrayList<Asiento> getReservasCanceladas() {
         return reservasCanceladas;
     }
-    public ArrayList<Asiento> getReservasPendientesDePago() {
+    public synchronized ArrayList<Asiento> getReservasPendientesDePago() {
         return reservasPendientesDePago;
     }
     public ArrayList<Asiento> getReservasConfirmadas() {
         return reservasConfirmadas;
+    }
+
+    public void printReservasPendientesDePago(){
+        String s = " ";
+        for (Asiento a :
+             reservasPendientesDePago) {
+            s += " " + a.getNumeroDeAsiento().toString() + " ";
+        }
+        System.out.println(s);
     }
 
 }

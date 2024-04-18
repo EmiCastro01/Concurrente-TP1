@@ -22,7 +22,7 @@ public class Avion {
 
     }
 
-    public Asiento getAsiento(Integer fila, Integer columna){
+    public synchronized Asiento getAsiento(Integer fila, Integer columna){
         return this.asientos[columna-1][fila-1];
     }
 
