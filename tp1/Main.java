@@ -17,15 +17,15 @@ public class Main {
       //hilos de reserva
         String string = "hola";
       Thread reserva1 = new Thread(new ProcesoDeReserva( "hola", listas, avion1));
-      Thread reserva2 = new Thread(new ProcesoDeReserva("R2", listas, avion1));
-      Thread reserva3 = new Thread(new ProcesoDeReserva("R3", listas, avion1));
+     Thread reserva2 = new Thread(new ProcesoDeReserva("R2", listas, avion1));
+       Thread reserva3 = new Thread(new ProcesoDeReserva("R3", listas, avion1));
         //avion1.printAvion();
       reserva1.start();
       reserva2.start();
       reserva3.start();
      try{
         reserva1.join();
-        reserva2.join();
+       reserva2.join();
         reserva3.join();
 
       }catch(InterruptedException e){
