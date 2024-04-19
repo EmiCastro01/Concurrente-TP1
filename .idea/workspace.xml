@@ -6,14 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="e406aed1-dd79-474d-9311-f6ce65d5ae9a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Concurrente-TP1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Concurrente-TP1/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Concurrente-TP1/tp1/ProcesoDeCancelacion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Concurrente-TP1/tp1/ProcesoDePago.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Concurrente-TP1/tp1/ProcesoDeReserva.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Concurrente-TP1/tp1/ProcesoDeVerificacion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Concurrente-TP1/tp1/Lista.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Concurrente-TP1/tp1/Lista.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Concurrente-TP1/tp1/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Concurrente-TP1/tp1/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Concurrente-TP1/tp1/avion/Asiento.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Concurrente-TP1/tp1/avion/Asiento.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Concurrente-TP1/tp1/avion/Avion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Concurrente-TP1/tp1/avion/Avion.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Concurrente-TP1/tp1/procesos/ProcesoDeReserva.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Concurrente-TP1/tp1/procesos/ProcesoDeReserva.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tp1/Lista.java" beforeDir="false" afterPath="$PROJECT_DIR$/tp1/Lista.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tp1/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/tp1/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tp1/avion/Asiento.java" beforeDir="false" afterPath="$PROJECT_DIR$/tp1/avion/Asiento.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tp1/avion/Avion.java" beforeDir="false" afterPath="$PROJECT_DIR$/tp1/avion/Avion.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tp1/procesos/ProcesoDeReserva.java" beforeDir="false" afterPath="$PROJECT_DIR$/tp1/procesos/ProcesoDeReserva.java" afterDir="false" />
     </list>

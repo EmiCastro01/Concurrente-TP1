@@ -19,7 +19,7 @@ public class Lista {
     public ArrayList<Asiento> getReservasCanceladas() {
         return reservasCanceladas;
     }
-    public synchronized ArrayList<Asiento> getReservasPendientesDePago() {
+    public  ArrayList<Asiento> getReservasPendientesDePago() {
         return reservasPendientesDePago;
     }
     public ArrayList<Asiento> getReservasConfirmadas() {

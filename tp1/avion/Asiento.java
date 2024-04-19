@@ -9,7 +9,7 @@ public class Asiento {
         this.estadoDeAsiento = false;
     }
 
-    public synchronized void ocuparAsiento(){
+    public void ocuparAsiento(){
         this.setEstadoDeAsiento(true);
     }
     public void liberarAsiento(){
@@ -22,7 +22,7 @@ public class Asiento {
     public void setEstadoDeAsiento(Boolean estadoDeAsiento){
         this.estadoDeAsiento = estadoDeAsiento;                 // true para ocupado, false para libre
     }
-    public synchronized Estado getEstadoDeAsiento() {
+    public Estado getEstadoDeAsiento() {
 
 
 
