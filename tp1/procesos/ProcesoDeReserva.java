@@ -13,7 +13,7 @@ public class ProcesoDeReserva implements Runnable{
     private String nombre;
     private Lista listas;
     private Avion avion;
-
+    private List<Integer> asientosPosibles;
     public ProcesoDeReserva(String nombre, Lista listas, Avion avion){
         this.listas = listas;
         this.avion = avion;
@@ -27,6 +27,22 @@ public class ProcesoDeReserva implements Runnable{
         @Override
         public void run(){
             while (!this.avion.estaCompleto()) {
+//                asientosPosibles = IntStream.iterate(0, i -> i + 1)
+//                        .limit(185)
+//                        .boxed()
+//                        .collect(Collectors.toList());
+//                Random random = new Random();
+//                Reserva reserva;
+//
+//                while(reserva == null){
+//                    Integer indiceAsiento = random.nextInt(asientosPosibles.length);
+//                    Integer numeroAsiento = asientosPosibles[indiceAsiento];
+//                    reserva = Gestor.GenerarReserva(numeroAsiento);
+//                    if(reserva == null){
+//                        asientosPosibles.removeByIndex(indiceAsiento);
+//                    }
+//                }
+                random.nextInt(4)
                 synchronized (this.avion) {
                     Random random = new Random();
                     Integer fila = random.nextInt(4) + 1;
