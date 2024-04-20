@@ -20,6 +20,9 @@ public class ProcesoDeVerificacion implements Runnable {
                 synchronized (gestorDeReservas.getReservasConfirmadas()) {
                     ArrayList<Reserva> reservasConfirmadas = gestorDeReservas.getReservasConfirmadas();
                     Reserva reservaAleatoria = getReservaConfirmadaAleatoria(reservasConfirmadas);
+                    if(reservaAleatoria == null){
+                        continue;
+                    }
                     if (reservaAleatoria.getEstado().equals("CHECKED")) {
                         reservasConfirmadas.remove(reservaAleatoria);
                         gestorDeReservas.getReservasVerificadas().add(reservaAleatoria);
@@ -32,7 +35,7 @@ public class ProcesoDeVerificacion implements Runnable {
     }
     public Reserva getReservaConfirmadaAleatoria(ArrayList<Reserva> reservasConfirmadas) {
         if (reservasConfirmadas == null || reservasConfirmadas.isEmpty()) {
-            throw new IllegalArgumentException("La lista de reservas confirmadas no puede ser nula o vacía");
+            return null;
         }
         Random random = new Random();
         int indiceAleatorio = random.nextInt(reservasConfirmadas.size());

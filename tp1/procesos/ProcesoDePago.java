@@ -21,6 +21,9 @@ public class ProcesoDePago implements Runnable{
             synchronized (gestorDeReservas.getReservasPendientesDePago()) {
                 var reservasPendientesDePago = gestorDeReservas.getReservasPendientesDePago();
                 var reservaAleatoria = getReservaPendienteAleatorio(reservasPendientesDePago);
+                if(reservaAleatoria == null){
+                    continue;
+                }
                 reservasPendientesDePago.remove(reservaAleatoria); // tanto si esta aprobada o no debo remover la reserva de la lista de pendientes
                 if (aprobado) {
                     synchronized (gestorDeReservas.getReservasConfirmadas()) {
@@ -64,7 +67,7 @@ public class ProcesoDePago implements Runnable{
 
     public static <T> T  getReservaPendienteAleatorio(ArrayList<T> reservaPendiente) {
         if (reservaPendiente == null || reservaPendiente.isEmpty()) {
-            throw new IllegalArgumentException("La reserva no puede ser nula o vacío");
+            return null;
         }
 
         Random random = new Random();
