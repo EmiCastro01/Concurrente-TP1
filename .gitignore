@@ -1,2 +1,6 @@
 .obj
 .idea
+out
+tp1/out
+tp1/logs
+tp1/.idea/*

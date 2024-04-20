@@ -4,6 +4,7 @@ import tp1.avion.Asiento;
 import tp1.avion.Avion;
 import tp1.avion.Estado;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import tp1.avion.*;
 
@@ -42,7 +43,7 @@ public class ProcesoDeReserva implements Runnable{
 //                        asientosPosibles.removeByIndex(indiceAsiento);
 //                    }
 //                }
-                random.nextInt(4)
+                //random.nextInt(4)
                 synchronized (this.avion) {
                     Random random = new Random();
                     Integer fila = random.nextInt(4) + 1;

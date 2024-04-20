@@ -1,7 +1,7 @@
 package tp1;
 
 import tp1.avion.Asiento;
-
+import tp1.avion.Avion;
 import java.util.ArrayList;
 
 public class Lista {
@@ -10,7 +10,10 @@ public class Lista {
     private ArrayList<Asiento> reservasCanceladas;
     private ArrayList<Asiento> reservasPendientesDePago;
 
-    public Lista(){
+    private Avion Avion;
+
+    public Lista(Avion avion){
+        Avion = avion;
         reservasCanceladas = new ArrayList<>();
         reservasConfirmadas = new ArrayList<>();
         reservasPendientesDePago = new ArrayList<>();
@@ -33,6 +36,18 @@ public class Lista {
             s += " " + a.getNumeroDeAsiento().toString() + " ";
         }
         System.out.println(s);
+    }
+
+    public int getCountReservasCanceladas(){
+        return reservasCanceladas.toArray().length;
+    }
+
+    public int getCountReservasConfirmadas(){
+        return reservasConfirmadas.toArray().length;
+    }
+
+    public double getOcupacionTotal(){
+        return (double)getCountReservasConfirmadas() / Avion.getCantidadTotalAsientos() * 100 ;
     }
 
 }
