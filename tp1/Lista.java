@@ -50,4 +50,6 @@ public class Lista {
         return (double)getCountReservasConfirmadas() / Avion.getCantidadTotalAsientos() * 100 ;
     }
 
+    public int getAsientosTotales(){return  Avion.getCantidadTotalAsientos();}
+
 }

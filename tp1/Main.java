@@ -1,6 +1,7 @@
 package tp1;
 import procesos.ProcesoLogs;
 import tp1.avion.Avion;
+import tp1.procesos.ProcesoDePago;
 import tp1.procesos.ProcesoDeReserva;
 
 import java.time.Duration;
@@ -21,6 +22,13 @@ public class Main {
         Instant start = Instant.now();
 
         ArrayList<Thread> threads =  new ArrayList<Thread>();
+      //hilos de reserva
+        String string = "hola";
+       Thread reserva1 = new Thread(new ProcesoDeReserva( "hola", listas, avion1));
+       Thread reserva2 = new Thread(new ProcesoDeReserva("R2", listas, avion1));
+       Thread reserva3 = new Thread(new ProcesoDeReserva("R3", listas, avion1));
+       Thread pago1 = new Thread(new ProcesoDePago("P1", listas));
+       Thread pago2 = new Thread(new ProcesoDePago("P2", listas));
 
         Avion avion1 = new Avion();
         tp1.Lista listas = new tp1.Lista(avion1);
@@ -37,6 +45,16 @@ public class Main {
         threads.add(new Thread(new ProcesoDeReserva("R3", listas, avion1)));
 
 
+        // avion1.printAvion();
+      reserva1.start();
+      reserva2.start();
+      reserva3.start();
+      pago1.start();
+      pago2.start();
+     try{
+        reserva1.join();
+        reserva2.join();
+        reserva3.join();
 
         // avion1.printAvion();
 
