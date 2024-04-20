@@ -12,15 +12,6 @@ public class Asiento {
         this.estadoDeAsiento = AsientoEstadoEnum.LIBRE;
     }
 
-    public void ocuparAsiento(){
-        estadoDeAsiento = AsientoEstadoEnum.OCUPADO;
-    }
-    public void liberarAsiento(){
-        estadoDeAsiento = AsientoEstadoEnum.LIBRE;
-    }
-    public void descartarAsiento(){
-        estadoDeAsiento = AsientoEstadoEnum.DESCARTADO;
-    }
     public void setNumeroDeAsiento(int numeroDeAsiento){
         this.numeroDeAsiento = numeroDeAsiento;
     }
