@@ -1,13 +1,13 @@
 package tp1.procesos;
-import tp1.Lista;
+import tp1.GestorDeReservas;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class ProcesoDePago implements Runnable{
 
     private String nombre;
-    private Lista listas;
-    public ProcesoDePago(String nombre, Lista listas)
+    private GestorDeReservas listas;
+    public ProcesoDePago(String nombre, GestorDeReservas listas)
     {
         this.nombre=nombre;
         this.listas=listas;

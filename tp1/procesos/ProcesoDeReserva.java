@@ -1,21 +1,20 @@
 package tp1.procesos;
-import tp1.Lista;
+import tp1.GestorDeReservas;
 import tp1.avion.Asiento;
 import tp1.avion.Avion;
 import tp1.avion.Estado;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import tp1.avion.*;
 
 public class ProcesoDeReserva implements Runnable{
 
 
     private String nombre;
-    private Lista listas;
+    private GestorDeReservas listas;
     private Avion avion;
-    private List<Integer> asientosPosibles;
-    public ProcesoDeReserva(String nombre, Lista listas, Avion avion){
+
+    public ProcesoDeReserva(String nombre, GestorDeReservas listas, Avion avion){
         this.listas = listas;
         this.avion = avion;
         this.nombre=nombre;
