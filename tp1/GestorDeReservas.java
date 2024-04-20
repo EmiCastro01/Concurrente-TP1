@@ -11,12 +11,14 @@ public class GestorDeReservas {
     private ArrayList<Reserva> reservasConfirmadas;
     private ArrayList<Reserva> reservasCanceladas;
     private ArrayList<Reserva> reservasPendientesDePago;
+    private ArrayList<Reserva> reservasVerificadas;
 
     public GestorDeReservas(Avion avion){
         this.avion = avion;
         reservasCanceladas = new ArrayList<>();
         reservasConfirmadas = new ArrayList<>();
         reservasPendientesDePago = new ArrayList<>();
+        reservasVerificadas = new ArrayList<>();
     }
 
     public ArrayList<Reserva> getReservasCanceladas() {
@@ -27,6 +29,9 @@ public class GestorDeReservas {
     }
     public ArrayList<Reserva> getReservasConfirmadas() {
         return reservasConfirmadas;
+    }
+    public ArrayList<Reserva> getReservasVerificadas() {
+        return reservasVerificadas;
     }
 
     public void printReservasPendientesDePago(){
