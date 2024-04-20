@@ -29,37 +29,27 @@ public class ProcesoDeReserva implements Runnable {
 
     @Override
     public void run() {
-        while (!this.avion.estaCompleto()) {
+        while (!this.gestorDeReservas.getAvion().estaCompleto()) {
             asientosPosibles = IntStream.iterate(0, i -> i + 1)
                     .limit(185)
                     .boxed()
                     .collect(Collectors.toList());
             Random random = new Random();
             Reserva reserva = null;
+
             while (reserva == null) {
+                if(gestorDeReservas.getAvion().estaCompleto()) break;
                 Integer indiceAsiento = random.nextInt(asientosPosibles.size());
                 Integer numeroAsiento = asientosPosibles.get(indiceAsiento);
-                reserva = this.gestorDeReservas.generarReserva(numeroAsiento);
+                reserva = gestorDeReservas.generarReserva(numeroAsiento);
                 if (reserva == null) {
                     asientosPosibles.remove(indiceAsiento);
                 }
-            }
-               /* synchronized (this.avion) {
-                    Random random = new Random();
-                    Integer fila = random.nextInt(4) + 1;
-                    Integer columna = random.nextInt(10) + 1;
-                    Asiento asiento = this.avion.getAsiento(fila, columna);
-                    if (asiento.getEstadoDeAsiento().equals(Estado.LIBRE)) {
-                        synchronized (asiento) {
-                            asiento.ocuparAsiento();
-                            this.listas.getReservasPendientesDePago().add(asiento);
-                            System.out.println("hola soy el hilo " + Thread.currentThread() + " y metí el asiento " +
-                                    asiento.getNumeroDeAsiento());
-                        }
-                    }
-                }
 
-                */
+
+            }
+
+
         }
 
     }
