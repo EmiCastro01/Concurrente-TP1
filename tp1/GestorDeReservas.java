@@ -73,6 +73,12 @@ public class GestorDeReservas {
         return this.avion;
     }
 
-//cancelar reserva
-    //checked
+    public void cancelarReserva(Reserva reserva){
+        this.reservasConfirmadas.remove(reserva);
+        this.reservasCanceladas.add(reserva);
+    }
+
+    public void marcarComoChecked(Reserva reserva){
+        this.getReservasConfirmadas().get(this.getReservasConfirmadas().indexOf(reserva)).setEstado(EstadoReserva.CHECKED);
+    }
 }
