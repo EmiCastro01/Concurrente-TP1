@@ -1,49 +1,50 @@
 package tp1.procesos;
 import tp1.GestorDeReservas;
-import tp1.avion.Asiento;
 import tp1.avion.Avion;
-import tp1.avion.Estado;
-import java.util.ArrayList;
+import tp1.Reserva;
+
 import java.util.List;
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
-public class ProcesoDeReserva implements Runnable{
+
+public class ProcesoDeReserva implements Runnable {
 
 
     private String nombre;
-    private GestorDeReservas listas;
+    private GestorDeReservas gestorDeReservas;
+    private List<Integer> asientosPosibles;
     private Avion avion;
 
-    public ProcesoDeReserva(String nombre, GestorDeReservas listas, Avion avion){
-        this.listas = listas;
+    public ProcesoDeReserva(String nombre, GestorDeReservas gestorDeReservas, Avion avion) {
+        this.gestorDeReservas = gestorDeReservas;
         this.avion = avion;
-        this.nombre=nombre;
+        this.nombre = nombre;
+        this.asientosPosibles=new ArrayList<>();
 
     }
 
 
-
-
-        @Override
-        public void run(){
-            while (!this.avion.estaCompleto()) {
-//                asientosPosibles = IntStream.iterate(0, i -> i + 1)
-//                        .limit(185)
-//                        .boxed()
-//                        .collect(Collectors.toList());
-//                Random random = new Random();
-//                Reserva reserva;
-//
-//                while(reserva == null){
-//                    Integer indiceAsiento = random.nextInt(asientosPosibles.length);
-//                    Integer numeroAsiento = asientosPosibles[indiceAsiento];
-//                    reserva = Gestor.GenerarReserva(numeroAsiento);
-//                    if(reserva == null){
-//                        asientosPosibles.removeByIndex(indiceAsiento);
-//                    }
-//                }
-                //random.nextInt(4)
-                synchronized (this.avion) {
+    @Override
+    public void run() {
+        while (!this.avion.estaCompleto()) {
+            asientosPosibles = IntStream.iterate(0, i -> i + 1)
+                    .limit(185)
+                    .boxed()
+                    .collect(Collectors.toList());
+            Random random = new Random();
+            Reserva reserva = null;
+            while (reserva == null) {
+                Integer indiceAsiento = random.nextInt(asientosPosibles.size());
+                Integer numeroAsiento = asientosPosibles.get(indiceAsiento);
+                reserva = this.gestorDeReservas.generarReserva(numeroAsiento);
+                if (reserva == null) {
+                    asientosPosibles.remove(indiceAsiento);
+                }
+            }
+               /* synchronized (this.avion) {
                     Random random = new Random();
                     Integer fila = random.nextInt(4) + 1;
                     Integer columna = random.nextInt(10) + 1;
@@ -57,23 +58,25 @@ public class ProcesoDeReserva implements Runnable{
                         }
                     }
                 }
-            }
 
-
-
-
-
-
-
-
-
-
-
-
-
+                */
+        }
 
     }
 
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,11 +1,14 @@
 package tp1;
 
-import tp1.avion.Asiento;
-import tp1.avion.Avion;
+import tp1.avion.*;
+
 import java.util.ArrayList;
 
 public class GestorDeReservas {
-    private Avion Avion;
+
+    private Avion avion;
+
+
     private ArrayList<Asiento> reservasConfirmadas;
     private ArrayList<Asiento> reservasCanceladas;
     private ArrayList<Asiento> reservasPendientesDePago;
@@ -49,5 +52,10 @@ public class GestorDeReservas {
     }
 
     public int getAsientosTotales(){return  Avion.getCantidadTotalAsientos();}
+
+    public Reserva generarReserva(Integer numeroDeAsiento) {
+            return null;
+    }
+
 
 }
