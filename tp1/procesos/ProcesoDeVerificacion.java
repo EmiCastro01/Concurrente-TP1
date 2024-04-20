@@ -4,7 +4,7 @@ import tp1.Reserva;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ProcesoDeVerificacion implements Runnable {
+public class ProcesoDeVerificacion implements Runnable, Proceso {
 
     private GestorDeReservas gestorDeReservas;
 
@@ -40,6 +40,21 @@ public class ProcesoDeVerificacion implements Runnable {
         Random random = new Random();
         int indiceAleatorio = random.nextInt(reservasConfirmadas.size());
         return reservasConfirmadas.get(indiceAleatorio);
+
+    }
+
+    @Override
+    public boolean validarSiContinua() {
+        return false;
+    }
+
+    @Override
+    public void procesar() {
+
+    }
+
+    @Override
+    public void esperar() {
 
     }
 }

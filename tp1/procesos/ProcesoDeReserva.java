@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 
-public class ProcesoDeReserva implements Runnable {
+public class ProcesoDeReserva implements Runnable, Proceso {
 
 
     private String nombre;
@@ -64,6 +64,20 @@ public class ProcesoDeReserva implements Runnable {
 
     }
 
+    @Override
+    public boolean validarSiContinua() {
+        return false;
+    }
+
+    @Override
+    public void procesar() {
+
+    }
+
+    @Override
+    public void esperar() {
+
+    }
 }
 
 

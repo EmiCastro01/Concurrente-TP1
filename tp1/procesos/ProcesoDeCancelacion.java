@@ -7,7 +7,7 @@ import tp1.Reserva;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ProcesoDeCancelacion implements Runnable {
+public class ProcesoDeCancelacion implements Runnable, Proceso {
     private final GestorDeReservas gestorDeReservas;
 
     public ProcesoDeCancelacion(GestorDeReservas gestorDeReservas) {
@@ -60,5 +60,20 @@ public class ProcesoDeCancelacion implements Runnable {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public boolean validarSiContinua() {
+        return false;
+    }
+
+    @Override
+    public void procesar() {
+
+    }
+
+    @Override
+    public void esperar() {
+
     }
 }
