@@ -1,5 +1,6 @@
 package tp1;
 import tp1.avion.Avion;
+import tp1.procesos.ProcesoDePago;
 import tp1.procesos.ProcesoDeReserva;
 
 import java.util.ArrayList;
@@ -19,16 +20,19 @@ public class Main {
        Thread reserva1 = new Thread(new ProcesoDeReserva( "hola", listas, avion1));
        Thread reserva2 = new Thread(new ProcesoDeReserva("R2", listas, avion1));
        Thread reserva3 = new Thread(new ProcesoDeReserva("R3", listas, avion1));
+       Thread pago1 = new Thread(new ProcesoDePago("P1", listas));
+       Thread pago2 = new Thread(new ProcesoDePago("P2", listas));
 
 
         // avion1.printAvion();
       reserva1.start();
       reserva2.start();
       reserva3.start();
-
+      pago1.start();
+      pago2.start();
      try{
         reserva1.join();
-      reserva2.join();
+        reserva2.join();
         reserva3.join();
 
 

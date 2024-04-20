@@ -9,6 +9,7 @@ public class Lista {
     private ArrayList<Asiento> reservasConfirmadas;
     private ArrayList<Asiento> reservasCanceladas;
     private ArrayList<Asiento> reservasPendientesDePago;
+    private int AsientosTotales = 185;
 
     public Lista(){
         reservasCanceladas = new ArrayList<>();
@@ -34,5 +35,7 @@ public class Lista {
         }
         System.out.println(s);
     }
+
+    public int getAsientosTotales(){return  AsientosTotales;}
 
 }
