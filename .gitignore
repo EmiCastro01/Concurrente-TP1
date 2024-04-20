@@ -2,5 +2,5 @@
 .idea
 out
 tp1/out
-tp1/logs
+logs
 tp1/.idea/*

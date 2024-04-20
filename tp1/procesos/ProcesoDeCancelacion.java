@@ -1,11 +1,13 @@
 package tp1.procesos;
 
+import tp1.GestorDeReservas;
+
 public class ProcesoDeCancelacion implements Runnable{
 
-    private String nombre;
+    private GestorDeReservas gestorDeReservas;
 
-    public ProcesoDeCancelacion(String nombre){
-        this.nombre=nombre;
+    public ProcesoDeCancelacion(GestorDeReservas gestorDeReservas){
+        this.gestorDeReservas = gestorDeReservas;
     }
     @Override
     public void run(){

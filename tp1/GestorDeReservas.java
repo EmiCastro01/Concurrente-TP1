@@ -5,12 +5,13 @@ import tp1.avion.Avion;
 import java.util.ArrayList;
 
 public class GestorDeReservas {
-
+    private Avion Avion;
     private ArrayList<Asiento> reservasConfirmadas;
     private ArrayList<Asiento> reservasCanceladas;
     private ArrayList<Asiento> reservasPendientesDePago;
 
-    public GestorDeReservas(){
+    public GestorDeReservas(Avion avion){
+        Avion = avion;
         reservasCanceladas = new ArrayList<>();
         reservasConfirmadas = new ArrayList<>();
         reservasPendientesDePago = new ArrayList<>();

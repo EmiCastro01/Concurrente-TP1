@@ -15,8 +15,8 @@ public class ProcesoLogs  implements Runnable{
     private String filePath;
     private File file;
 
-    private tp1.Lista GestorReservas;
-    public ProcesoLogs(tp1.Lista gestorReservas){
+    private tp1.GestorDeReservas GestorReservas;
+    public ProcesoLogs(tp1.GestorDeReservas gestorReservas){
 
         GestorReservas = gestorReservas;
         filePath = String.format("%s_log.txt", DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss").format(LocalDateTime.now()));
