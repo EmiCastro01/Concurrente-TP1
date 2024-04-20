@@ -42,7 +42,7 @@ public class Avion {
         for (int i = 0; i < numeroDeAsientosPorFila; i++) {
 
             for (int j = 0; j < numeroDeFilas; j++) {
-                if (asientos[i][j].getEstadoDeAsiento().equals(Estado.LIBRE)) {
+                if (asientos[i][j].getEstadoDeAsiento().equals(AsientoEstadoEnum.LIBRE)) {
                     return false;
                 }
             }
