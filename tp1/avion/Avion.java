@@ -1,5 +1,7 @@
 package tp1.avion;
 
+import tp1.AsientoEstadoEnum;
+
 public class Avion {
 
     private Integer numeroDeAsientosPorFila = 10;
@@ -29,7 +31,7 @@ public class Avion {
         for (int i = 0; i < numeroDeAsientosPorFila; i++) {
             System.out.println("");
             for (int j = 0; j < numeroDeFilas; j++) {
-                String numeroAsiento = asientos[i][j].getEstadoDeAsiento() == Estado.LIBRE ?
+                String numeroAsiento = asientos[i][j].getEstadoDeAsiento() == AsientoEstadoEnum.LIBRE ?
                         String.valueOf(asientos[i][j].getNumeroDeAsiento()) : "-";
                 System.out.print("[ " + numeroAsiento + " ] ");
             }

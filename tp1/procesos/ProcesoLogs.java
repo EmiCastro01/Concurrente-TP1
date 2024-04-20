@@ -1,4 +1,4 @@
-package procesos;
+package tp1.procesos;
 
 
 import java.io.BufferedWriter;

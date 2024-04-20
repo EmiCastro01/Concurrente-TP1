@@ -1,32 +1,35 @@
 package tp1.avion;
 
+import tp1.AsientoEstadoEnum;
+import tp1.Reserva;
+
 public class Asiento {
 
-    private Boolean estadoDeAsiento;
+    private AsientoEstadoEnum estadoDeAsiento;
     private Integer numeroDeAsiento;
-    
+
     public Asiento(){
-        this.estadoDeAsiento = false;
+        this.estadoDeAsiento = AsientoEstadoEnum.LIBRE;
     }
 
     public void ocuparAsiento(){
-        this.setEstadoDeAsiento(true);
+        estadoDeAsiento = AsientoEstadoEnum.OCUPADO;
     }
     public void liberarAsiento(){
-        this.setEstadoDeAsiento(false);
+        estadoDeAsiento = AsientoEstadoEnum.LIBRE;
+    }
+    public void descartarAsiento(){
+        estadoDeAsiento = AsientoEstadoEnum.DESCARTADO;
     }
     public void setNumeroDeAsiento(int numeroDeAsiento){
         this.numeroDeAsiento = numeroDeAsiento;
     }
 
-    public void setEstadoDeAsiento(Boolean estadoDeAsiento){
-        this.estadoDeAsiento = estadoDeAsiento;                 // true para ocupado, false para libre
+    public void setEstadoDeAsiento(AsientoEstadoEnum estadoDeAsiento){
+        this.estadoDeAsiento = estadoDeAsiento;
     }
-    public Estado getEstadoDeAsiento() {
-
-
-
-        return this.estadoDeAsiento ? Estado.OCUPADO : Estado.LIBRE;
+    public AsientoEstadoEnum getEstadoDeAsiento (){
+        return estadoDeAsiento;
     }
 
     public Integer getNumeroDeAsiento() {

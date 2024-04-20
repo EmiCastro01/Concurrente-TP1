@@ -1,4 +1,6 @@
 package tp1.procesos;
+import tp1.AsientoEstadoEnum;
+import tp1.EstadoReserva;
 import tp1.GestorDeReservas;
 import java.util.ArrayList;
 import java.util.Random;
@@ -14,25 +16,32 @@ public class ProcesoDePago implements Runnable{
         boolean conReservasPendientes = true;
         while(conReservasPendientes) {
             try {
-                Thread.sleep(1000);
             var aprobado = generarBooleanoConProbabilidad(0.9);
             synchronized (gestorDeReservas.getReservasPendientesDePago()) {
                 var reservasPendientesDePago = gestorDeReservas.getReservasPendientesDePago();
                 var reservaAleatoria = getReservaPendienteAleatorio(reservasPendientesDePago);
+                reservasPendientesDePago.remove(reservaAleatoria); // tanto si esta aprobada o no debo remover la reserva de la lista de pendientes
                 if (aprobado) {
                     synchronized (gestorDeReservas.getReservasConfirmadas()) {
-                        reservasPendientesDePago.remove(reservaAleatoria);
                         gestorDeReservas.getReservasConfirmadas().add(reservaAleatoria);
                         System.out.println("Hola soy el hilo " + Thread.currentThread() + " y aprove el pago del asiento " +
-                                reservaAleatoria.getNumeroDeAsiento());
+                                reservaAleatoria.getAsiento().getNumeroDeAsiento());
                     }
                 }
                 else
                 {
-                    System.out.println("Hola soy el hilo " + Thread.currentThread() + " y rechace el pago del asiento " +
-                            reservaAleatoria.getNumeroDeAsiento());
+                    synchronized (gestorDeReservas.getReservasCanceladas()) {
+                        reservaAleatoria.getAsiento().setEstadoDeAsiento(AsientoEstadoEnum.DESCARTADO);
+                        reservaAleatoria.setEstado(EstadoReserva.CANCELADA);
+                        gestorDeReservas.getReservasCanceladas().add(reservaAleatoria);
+                        System.out.println("Hola soy el hilo " + Thread.currentThread() + " y rechace el pago del asiento " +
+                                reservaAleatoria.getAsiento().getNumeroDeAsiento());
+                    }
+
                 }
+
                 conReservasPendientes = gestorDeReservas.getAsientosTotales() != 0;
+                Thread.sleep(20);
             }
             }
             catch (IllegalArgumentException | InterruptedException e)

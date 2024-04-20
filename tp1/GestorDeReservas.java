@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 public class GestorDeReservas {
     private Avion avion;
-    private ArrayList<Asiento> reservasConfirmadas;
-    private ArrayList<Asiento> reservasCanceladas;
-    private ArrayList<Asiento> reservasPendientesDePago;
+    private ArrayList<Reserva> reservasConfirmadas;
+    private ArrayList<Reserva> reservasCanceladas;
+    private ArrayList<Reserva> reservasPendientesDePago;
 
     public GestorDeReservas(Avion avion){
         this.avion = avion;
@@ -19,21 +19,21 @@ public class GestorDeReservas {
         reservasPendientesDePago = new ArrayList<>();
     }
 
-    public ArrayList<Asiento> getReservasCanceladas() {
+    public ArrayList<Reserva> getReservasCanceladas() {
         return reservasCanceladas;
     }
-    public  ArrayList<Asiento> getReservasPendientesDePago() {
+    public  ArrayList<Reserva> getReservasPendientesDePago() {
         return reservasPendientesDePago;
     }
-    public ArrayList<Asiento> getReservasConfirmadas() {
+    public ArrayList<Reserva> getReservasConfirmadas() {
         return reservasConfirmadas;
     }
 
     public void printReservasPendientesDePago(){
         String s = " ";
-        for (Asiento a :
+        for (Reserva r :
              reservasPendientesDePago) {
-            s += " " + a.getNumeroDeAsiento().toString() + " ";
+            s += " " + r.getAsiento().getNumeroDeAsiento().toString() + " ";
         }
         System.out.println(s);
     }

@@ -1,5 +1,5 @@
 package tp1;
-import procesos.ProcesoLogs;
+import tp1.procesos.ProcesoLogs;
 import tp1.avion.Avion;
 import tp1.procesos.ProcesoDePago;
 import tp1.procesos.ProcesoDeReserva;
