@@ -20,7 +20,7 @@ public class ProcesoDeVerificacion implements Runnable, Proceso {
         boolean continuar= true;
         while (continuar) {
             try {
-                Thread.sleep(150);
+                //Thread.sleep(150);
                 //synchronized (gestorDeReservas.getReservasConfirmadas()) {
                     ArrayList<Reserva> reservasConfirmadas = gestorDeReservas.getReservasConfirmadas();
                     Reserva reservaAleatoria = getReservaConfirmadaAleatoria(reservasConfirmadas);
@@ -33,7 +33,7 @@ public class ProcesoDeVerificacion implements Runnable, Proceso {
                         Logs.Log(Thread.currentThread(), "Verifiqué la reserva del asiento " + reservaAleatoria.getAsiento().getNumeroDeAsiento());
                     }
                 //}
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
                 Logs.Log(Thread.currentThread(), "Me cerré ");
                 Thread.currentThread().interrupt();
             }

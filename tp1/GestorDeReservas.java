@@ -64,7 +64,7 @@ public class GestorDeReservas {
                 this.getReservasPendientesDePago().add(reserva);
                 Logs.Log(Thread.currentThread(), "Agregué la reserva a pendientes de pago: " + reserva.getAsiento().getNumeroDeAsiento());
                 try{
-                    Thread.sleep(10);
+                    //Thread.sleep(10);
 
                 }catch(Exception e){
 

@@ -18,7 +18,7 @@ public class ProcesoDePago implements Runnable{
         boolean conReservasPendientes = gestorDeReservas.puedoGestionarAsientos();
         while(conReservasPendientes) {
             try {
-                Thread.sleep(20);
+                //Thread.sleep(20);
 
                 var reservasPendientesDePago = gestorDeReservas.getReservasPendientesDePago();
                 var reservaAleatoria = getReservaPendienteAleatorio(reservasPendientesDePago);
@@ -45,7 +45,7 @@ public class ProcesoDePago implements Runnable{
 
 
             }
-            catch (IllegalArgumentException | InterruptedException e)
+            catch (Exception e)
             {
                 Logs.Log(Thread.currentThread(), "Tengo el siguiente error: " + e.getMessage());
             }

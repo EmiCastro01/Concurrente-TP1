@@ -44,7 +44,7 @@ public class ProcesoLogs  implements Runnable{
     @Override
     public void run() {
         if(printHeader){
-            WriteInFile("Canceladas | Confirmadas");
+            WriteInFile("Canceladas | Aprobadas");
             printHeader = false;
         }
         WriteInFile(String.format("%s      |%s",padLeft(GestorReservas.getCountReservasCanceladas(), 5, ' ' ),padLeft(GestorReservas.getCountReservasVerificadas(), 7, ' ')));

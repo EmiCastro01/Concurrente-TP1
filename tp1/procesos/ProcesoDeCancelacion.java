@@ -20,7 +20,7 @@ public class ProcesoDeCancelacion implements Runnable, Proceso {
         boolean conReservasConfirmadas = gestorDeReservas.puedoGestionarAsientos();
         while (conReservasConfirmadas) {
             try {
-                Thread.sleep(20);
+                //Thread.sleep(20);
                 var cancelado = generarBooleanoConProbabilidad(0.1);
                 var reservaAleatoria = obtenerReservaAleatoriaDeConfirmadas();
                 if (reservaAleatoria != null) {
@@ -33,7 +33,7 @@ public class ProcesoDeCancelacion implements Runnable, Proceso {
                     }
                 }
                 conReservasConfirmadas = gestorDeReservas.puedoGestionarAsientos();
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

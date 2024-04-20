@@ -45,11 +45,11 @@ public class Main {
         threads.add(new Thread(new ProcesoDePago(gestorReservas), "Pago2"));
         //Hilos de Cancelación
         threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas), "Cancelacion1"));
-//        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas), "Cancelacion2"));
-//        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas), "Cancelacion3"));
+        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas), "Cancelacion2"));
+        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas), "Cancelacion3"));
         //Hilos de Verificación
-//        threads.add(new Thread(new ProcesoDeVerificacion(gestorReservas), "Verificacion1"));
-//        threads.add(new Thread(new ProcesoDeVerificacion(gestorReservas), "Verificacion2"));
+        threads.add(new Thread(new ProcesoDeVerificacion(gestorReservas), "Verificacion1"));
+        threads.add(new Thread(new ProcesoDeVerificacion(gestorReservas), "Verificacion2"));
 
 
 
