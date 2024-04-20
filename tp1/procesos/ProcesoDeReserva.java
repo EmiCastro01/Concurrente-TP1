@@ -23,7 +23,7 @@ public class ProcesoDeReserva implements Runnable{
 
 
 
-
+//H
         @Override
         public void run(){
             while (!this.avion.estaCompleto()) {
