@@ -18,7 +18,9 @@ public class ProcesoDePago implements Runnable{
             try {
                 Thread.sleep(20);
                 var reservaAleatoria = gestorDeReservas.removerReservasPendientesDePago();
-                if(reservaAleatoria == null){ continue; }
+                if(reservaAleatoria == null)
+                { System.out.println("Hola soy el hilo " + Thread.currentThread().getName() + " y no tengo reservas ");
+                    continue; }
                 var aprobado = generarBooleanoConProbabilidad(0.9);
                 if (aprobado) {
                     gestorDeReservas.agregarReservasConfirmadas(reservaAleatoria);
