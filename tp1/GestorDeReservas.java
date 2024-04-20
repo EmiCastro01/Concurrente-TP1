@@ -58,13 +58,32 @@ public class GestorDeReservas {
     public int getAsientosTotales(){return  avion.getCantidadTotalAsientos();}
 
     public Reserva generarReserva(Integer numeroDeAsiento) {
-            return null;
+            if(this.avion.getAsiento(numeroDeAsiento).getEstadoDeAsiento().equals(AsientoEstadoEnum.LIBRE)){
+                Reserva reserva = new Reserva(this.avion.getAsiento(numeroDeAsiento));
+                reserva.getAsiento().setEstadoDeAsiento(AsientoEstadoEnum.OCUPADO);
+                this.getReservasPendientesDePago().add(reserva);
+                try{
+                    Thread.sleep(10);
+
+                }catch(Exception e){
+
+                }
+                return new Reserva(this.avion.getAsiento(numeroDeAsiento));
+            }else{
+                return null;
+            }
     }
 
-
-    public void marcarComoChecked(Reserva reservaAleatoria) {
+    public Avion getAvion(){
+        return this.avion;
     }
 
-    public void cancelarReserva(Reserva reservaAleatoria) {
+    public void cancelarReserva(Reserva reserva){
+        this.reservasConfirmadas.remove(reserva);
+        this.reservasCanceladas.add(reserva);
+    }
+
+    public void marcarComoChecked(Reserva reserva){
+        this.getReservasConfirmadas().get(this.getReservasConfirmadas().indexOf(reserva)).setEstado(EstadoReserva.CHECKED);
     }
 }
