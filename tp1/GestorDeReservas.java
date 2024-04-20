@@ -4,14 +4,14 @@ import tp1.avion.Asiento;
 
 import java.util.ArrayList;
 
-public class Lista {
+public class GestorDeReservas {
 
     private ArrayList<Asiento> reservasConfirmadas;
     private ArrayList<Asiento> reservasCanceladas;
     private ArrayList<Asiento> reservasPendientesDePago;
     private int AsientosTotales = 185;
 
-    public Lista(){
+    public GestorDeReservas(){
         reservasCanceladas = new ArrayList<>();
         reservasConfirmadas = new ArrayList<>();
         reservasPendientesDePago = new ArrayList<>();

@@ -3,16 +3,12 @@ import tp1.avion.Avion;
 import tp1.procesos.ProcesoDePago;
 import tp1.procesos.ProcesoDeReserva;
 
-import java.util.ArrayList;
-import java.util.Random;
-
-
 
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
       Avion avion1 = new Avion();
-        Lista listas = new Lista();
+        GestorDeReservas listas = new GestorDeReservas();
 
 
       //hilos de reserva
