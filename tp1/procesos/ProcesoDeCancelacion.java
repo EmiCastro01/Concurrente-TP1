@@ -3,6 +3,8 @@ import tp1.AsientoEstadoEnum;
 import tp1.EstadoReserva;
 import tp1.GestorDeReservas;
 import tp1.Reserva;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 public class ProcesoDeCancelacion implements Runnable {

@@ -62,4 +62,9 @@ public class GestorDeReservas {
     }
 
 
+    public void marcarComoChecked(Reserva reservaAleatoria) {
+    }
+
+    public void cancelarReserva(Reserva reservaAleatoria) {
+    }
 }
