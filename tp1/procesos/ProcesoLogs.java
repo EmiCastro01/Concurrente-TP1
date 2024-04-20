@@ -15,6 +15,7 @@ public class ProcesoLogs  implements Runnable{
     private String filePath;
     private File file;
 
+    private boolean printHeader = true;
     private tp1.GestorDeReservas GestorReservas;
     public ProcesoLogs(tp1.GestorDeReservas gestorReservas){
 
@@ -43,7 +44,11 @@ public class ProcesoLogs  implements Runnable{
     }
     @Override
     public void run() {
-        WriteInFile(String.format("Canceladas: %s |  Confirmadas: %s",GestorReservas.getCountReservasCanceladas(),GestorReservas.getCountReservasConfirmadas()));
+        if(printHeader){
+            WriteInFile("Canceladas | Confirmadas");
+            printHeader = false;
+        }
+        WriteInFile(String.format("%s      |%s",padLeft(GestorReservas.getCountReservasCanceladas(), 5, ' ' ),padLeft(GestorReservas.getCountReservasConfirmadas(), 7, ' ')));
     }
 
     private void WriteInFile(String text){
@@ -56,5 +61,21 @@ public class ProcesoLogs  implements Runnable{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private String padLeft(int value, int length, char charPad) {
+        return padLeft(""+value,length, charPad);
+    }
+    private String padLeft(String inputString, int length, char charPad) {
+        if (inputString.length() >= length) {
+            return inputString;
+        }
+        StringBuilder sb = new StringBuilder();
+        while (sb.length() < length - inputString.length()) {
+            sb.append(charPad);
+        }
+        sb.append(inputString);
+
+        return sb.toString();
     }
 }
