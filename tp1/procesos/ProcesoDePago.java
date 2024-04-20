@@ -25,7 +25,7 @@ public class ProcesoDePago implements Runnable{
                 if (aprobado) {
                     synchronized (gestorDeReservas.getReservasConfirmadas()) {
                         gestorDeReservas.getReservasConfirmadas().add(reservaAleatoria);
-                        System.out.println("Hola soy el hilo " + Thread.currentThread()c + " y aprove el pago del asiento " +
+                        System.out.println("Hola soy el hilo " + Thread.currentThread().getName() + " y aprove el pago del asiento " +
                                 reservaAleatoria.getAsiento().getNumeroDeAsiento());
                     }
                 }
@@ -35,7 +35,7 @@ public class ProcesoDePago implements Runnable{
                         reservaAleatoria.getAsiento().setEstadoDeAsiento(AsientoEstadoEnum.DESCARTADO);
                         reservaAleatoria.setEstado(EstadoReserva.CANCELADA);
                         gestorDeReservas.getReservasCanceladas().add(reservaAleatoria);
-                        System.out.println("Hola soy el hilo " + Thread.currentThread()AsientoEstadoEnum + " y rechace el pago del asiento " +
+                        System.out.println("Hola soy el hilo " + Thread.currentThread().getName() + " y rechace el pago del asiento " +
                                 reservaAleatoria.getAsiento().getNumeroDeAsiento());
                     }
 
@@ -47,7 +47,7 @@ public class ProcesoDePago implements Runnable{
             }
             catch (IllegalArgumentException | InterruptedException e)
             {
-                System.out.println("Hola soy el hilo " + Thread.currentThread()AsientoEstadoEnum + " y tengo el siguiente error: " + e.getMessage());
+                System.out.println("Hola soy el hilo " + Thread.currentThread().getName() + " y tengo el siguiente error: " + e.getMessage());
             }
         }
     }
