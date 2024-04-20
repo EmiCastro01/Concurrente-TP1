@@ -16,6 +16,7 @@ public class ProcesoDePago implements Runnable{
         boolean conReservasPendientes = true;
         while(conReservasPendientes) {
             try {
+                Thread.sleep(20);
             var aprobado = generarBooleanoConProbabilidad(0.9);
             synchronized (gestorDeReservas.getReservasPendientesDePago()) {
                 var reservasPendientesDePago = gestorDeReservas.getReservasPendientesDePago();
@@ -41,7 +42,7 @@ public class ProcesoDePago implements Runnable{
                 }
 
                 conReservasPendientes = gestorDeReservas.getAsientosTotales() != 0;
-                Thread.sleep(20);
+
             }
             }
             catch (IllegalArgumentException | InterruptedException e)
