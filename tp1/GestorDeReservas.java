@@ -5,6 +5,7 @@ import tp1.avion.Asiento;
 import tp1.avion.Avion;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GestorDeReservas {
     private Avion avion;
@@ -56,5 +57,39 @@ public class GestorDeReservas {
             return null;
     }
 
+    public Reserva removerReservasPendientesDePago (){
+        synchronized (reservasPendientesDePago) {
+            var reservaAleatoria = getReservaAleatorio(reservasPendientesDePago);
+            if(reservaAleatoria==null){return null;}
+            reservasPendientesDePago.remove(reservaAleatoria);
+            return reservaAleatoria;
+        }
+    }
+
+    public void agregarReservasConfirmadas(Reserva reserva) {
+        synchronized (reservasConfirmadas) {
+            reservasConfirmadas.add(reserva);
+            System.out.println("Hola soy el hilo " + Thread.currentThread() + " y aprove el pago del asiento " +
+                    reserva.getAsiento().getNumeroDeAsiento());
+        }
+    }
+
+    public void agregarReservasCanceladas(Reserva reserva) {
+        synchronized (reservasCanceladas) {
+            reservasCanceladas.add(reserva);
+            System.out.println("Hola soy el hilo " + Thread.currentThread() + " y rechace el pago del asiento " +
+                    reserva.getAsiento().getNumeroDeAsiento());
+        }
+    }
+
+    public static Reserva  getReservaAleatorio(ArrayList<Reserva> reservas) {
+        if (reservas == null || reservas.isEmpty()) {
+            return null;
+        }
+
+        Random random = new Random();
+        int indiceAleatorio = random.nextInt(reservas.size());
+        return reservas.get(indiceAleatorio);
+    }
 
 }
