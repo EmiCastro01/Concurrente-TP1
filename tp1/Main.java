@@ -1,63 +1,68 @@
 package tp1;
+import procesos.ProcesoLogs;
 import tp1.avion.Avion;
 import tp1.procesos.ProcesoDePago;
 import tp1.procesos.ProcesoDeReserva;
+import tp1.procesos.ProcesoDeCancelacion;
+import tp1.procesos.ProcesoDeVerificacion;
+
+import java.time.Duration;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Timer;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
-      Avion avion1 = new Avion();
-        GestorDeReservas listas = new GestorDeReservas();
+        Avion avion1 = new Avion();
+        GestorDeReservas gestorReservas = new GestorDeReservas(avion1);
 
+        Instant start = Instant.now();
 
-      //hilos de reserva
-        String string = "hola";
-       Thread reserva1 = new Thread(new ProcesoDeReserva( "hola", listas, avion1));
-       Thread reserva2 = new Thread(new ProcesoDeReserva("R2", listas, avion1));
-       Thread reserva3 = new Thread(new ProcesoDeReserva("R3", listas, avion1));
-       Thread pago1 = new Thread(new ProcesoDePago("P1", listas));
-       Thread pago2 = new Thread(new ProcesoDePago("P2", listas));
+        ArrayList<Thread> threads = new ArrayList<Thread>();
 
+        //Hilo Archivo Log
+        ProcesoLogs procesoLog = new ProcesoLogs(gestorReservas);
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        executor.scheduleAtFixedRate(procesoLog, 0, 200, TimeUnit.MILLISECONDS);
 
-        // avion1.printAvion();
-      reserva1.start();
-      reserva2.start();
-      reserva3.start();
-      pago1.start();
-      pago2.start();
-     try{
-        reserva1.join();
-        reserva2.join();
-        reserva3.join();
+        //Hilos de reserva
+        threads.add(new Thread(new ProcesoDeReserva("hola", gestorReservas, avion1), "Reserva1"));
+        threads.add(new Thread(new ProcesoDeReserva("R2", gestorReservas, avion1), "Reserva2"));
+        threads.add(new Thread(new ProcesoDeReserva("R3", gestorReservas, avion1), "Reserva3"));
+        //Hilos de Pago
+        threads.add(new Thread(new ProcesoDePago(gestorReservas), "Pago1"));
+        threads.add(new Thread(new ProcesoDePago(gestorReservas), "Pago2"));
+        //Hilos de Cancelación
+        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas), "Cancelacion1"));
+        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas), "Cancelacion2"));
+        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas), "Cancelacion3"));
+        //Hilos de Verificación
+        threads.add(new Thread(new ProcesoDeVerificacion(gestorReservas), "Verificacion1"));
+        threads.add(new Thread(new ProcesoDeVerificacion(gestorReservas), "Verificacion2"));
 
+        for (Thread thread : threads) {
+            thread.start();
+        }
 
+        try {
+            for (Thread thread : threads) {
+                thread.join();
+            }
+        } catch (InterruptedException e) {
+            System.out.println("los hilos de reserva fueron interrumpidos");
+        }
 
-      }catch(InterruptedException e){
-        System.out.println("los hilos de reserva fueron interrumpidos");
-      }
+        Instant finish = Instant.now();
+        long timeElapsed = Duration.between(start, finish).toMillis();
+        executor.shutdown();
 
-        //avion1.printAvion();
-        listas.printReservasPendientesDePago();
-
-
-        // System.out.println(listas.getReservasPendientesDePago());
-      //hilos de cancelacion
-/*
-      Thread cancelacion1 = new Thread(new ProcesoDeCancelacion("C1"));
-      Thread cancelacion2 = new Thread(new ProcesoDeCancelacion("C2"));
-      Thread cancelacion3 = new Thread(new ProcesoDeCancelacion("C3"));
-      //hilos de pago
-
-      Thread pago1 = new Thread(new ProcesoDePago("P1"));
-      Thread pago2 = new Thread(new ProcesoDePago("P2"));
-
-      //hilos de verificacion
-
-      Thread verificacion1 = new Thread(new ProcesoDeVerificacion("V1"));
-      Thread verificacion2 = new Thread(new ProcesoDeVerificacion("V2"));
-      
-*/
-
+        procesoLog.WriteEndLog((double) timeElapsed / 1000);
     }
 }

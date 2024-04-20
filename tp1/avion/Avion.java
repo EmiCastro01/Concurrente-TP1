@@ -5,6 +5,7 @@ public class Avion {
     private Integer numeroDeAsientosPorFila = 10;
     private Integer numeroDeFilas = 4;
     private Asiento[][] asientos;
+    private int CantidadTotalAsientos = 186;
 
 
     public Avion() {
@@ -48,4 +49,7 @@ public class Avion {
         return true;
     }
 
+    public int getCantidadTotalAsientos() {
+        return CantidadTotalAsientos;
+    }
 }

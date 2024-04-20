@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ProcesoDePago implements Runnable{
-
-    private String nombre;
-    private GestorDeReservas listas;
-    public ProcesoDePago(String nombre, GestorDeReservas listas)
+    private GestorDeReservas gestorDeReservas;
+    public ProcesoDePago(GestorDeReservas gestorDeReservas)
     {
-        this.nombre=nombre;
-        this.listas=listas;
+        this.gestorDeReservas = gestorDeReservas;
     }
     @Override
     public void run(){
@@ -19,13 +16,13 @@ public class ProcesoDePago implements Runnable{
             try {
                 Thread.sleep(1000);
             var aprobado = generarBooleanoConProbabilidad(0.9);
-            synchronized (listas.getReservasPendientesDePago()) {
-                var reservasPendientesDePago = listas.getReservasPendientesDePago();
+            synchronized (gestorDeReservas.getReservasPendientesDePago()) {
+                var reservasPendientesDePago = gestorDeReservas.getReservasPendientesDePago();
                 var reservaAleatoria = getReservaPendienteAleatorio(reservasPendientesDePago);
                 if (aprobado) {
-                    synchronized (listas.getReservasConfirmadas()) {
+                    synchronized (gestorDeReservas.getReservasConfirmadas()) {
                         reservasPendientesDePago.remove(reservaAleatoria);
-                        listas.getReservasConfirmadas().add(reservaAleatoria);
+                        gestorDeReservas.getReservasConfirmadas().add(reservaAleatoria);
                         System.out.println("Hola soy el hilo " + Thread.currentThread() + " y aprove el pago del asiento " +
                                 reservaAleatoria.getNumeroDeAsiento());
                     }
@@ -35,7 +32,7 @@ public class ProcesoDePago implements Runnable{
                     System.out.println("Hola soy el hilo " + Thread.currentThread() + " y rechace el pago del asiento " +
                             reservaAleatoria.getNumeroDeAsiento());
                 }
-                conReservasPendientes = listas.getAsientosTotales() != 0;
+                conReservasPendientes = gestorDeReservas.getAsientosTotales() != 0;
             }
             }
             catch (IllegalArgumentException | InterruptedException e)
