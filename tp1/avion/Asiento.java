@@ -30,6 +30,6 @@ public class Asiento {
     }
 
     public Integer getNumeroDeAsiento() {
-        return numeroDeAsiento;
+        return numeroDeAsiento; 
     }
 }
