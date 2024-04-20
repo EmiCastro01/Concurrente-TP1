@@ -7,7 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class ProcesoLogs  implements Runnable{
 
@@ -48,7 +47,7 @@ public class ProcesoLogs  implements Runnable{
             WriteInFile("Canceladas | Confirmadas");
             printHeader = false;
         }
-        WriteInFile(String.format("%s      |%s",padLeft(GestorReservas.getCountReservasCanceladas(), 5, ' ' ),padLeft(GestorReservas.getCountReservasConfirmadas(), 7, ' ')));
+        WriteInFile(String.format("%s      |%s",padLeft(GestorReservas.getCountReservasCanceladas(), 5, ' ' ),padLeft(GestorReservas.getCountReservasVerificadas(), 7, ' ')));
     }
 
     private void WriteInFile(String text){

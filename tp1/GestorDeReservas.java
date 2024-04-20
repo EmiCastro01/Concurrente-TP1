@@ -1,8 +1,8 @@
 package tp1;
 
 
-import tp1.avion.Asiento;
 import tp1.avion.Avion;
+import tp1.utils.Logs;
 
 import java.util.ArrayList;
 
@@ -47,12 +47,12 @@ public class GestorDeReservas {
         return reservasCanceladas.toArray().length;
     }
 
-    public int getCountReservasConfirmadas(){
-        return reservasConfirmadas.toArray().length;
+    public int getCountReservasVerificadas(){
+        return reservasVerificadas.toArray().length;
     }
 
     public double getOcupacionTotal(){
-        return (double)getCountReservasConfirmadas() / avion.getCantidadTotalAsientos() * 100 ;
+        return (double) getCountReservasVerificadas() / avion.getCantidadTotalAsientos() * 100 ;
     }
 
     public int getAsientosTotales(){return  avion.getCantidadTotalAsientos();}
@@ -62,13 +62,14 @@ public class GestorDeReservas {
                 Reserva reserva = new Reserva(this.avion.getAsiento(numeroDeAsiento));
                 reserva.getAsiento().setEstadoDeAsiento(AsientoEstadoEnum.OCUPADO);
                 this.getReservasPendientesDePago().add(reserva);
+                Logs.Log(Thread.currentThread(), "Agregué la reserva a pendientes de pago: " + reserva.getAsiento().getNumeroDeAsiento());
                 try{
                     Thread.sleep(10);
 
                 }catch(Exception e){
 
                 }
-                return new Reserva(this.avion.getAsiento(numeroDeAsiento));
+                return reserva;
             }else{
                 return null;
             }
@@ -84,6 +85,10 @@ public class GestorDeReservas {
     }
 
     public void marcarComoChecked(Reserva reserva){
-        this.getReservasConfirmadas().get(this.getReservasConfirmadas().indexOf(reserva)).setEstado(EstadoReserva.CHECKED);
+        reserva.setEstado(EstadoReserva.CHECKED);
+    }
+
+    public boolean puedoGestionarAsientos(){
+        return getCountReservasCanceladas() + getCountReservasVerificadas() != avion.getCantidadTotalAsientos();
     }
 }

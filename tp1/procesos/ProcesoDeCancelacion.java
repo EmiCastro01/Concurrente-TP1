@@ -3,6 +3,7 @@ import tp1.AsientoEstadoEnum;
 import tp1.EstadoReserva;
 import tp1.GestorDeReservas;
 import tp1.Reserva;
+import tp1.utils.Logs;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -16,7 +17,7 @@ public class ProcesoDeCancelacion implements Runnable, Proceso {
 
     @Override
     public void run() {
-        boolean conReservasConfirmadas = true;
+        boolean conReservasConfirmadas = gestorDeReservas.puedoGestionarAsientos();
         while (conReservasConfirmadas) {
             try {
                 Thread.sleep(20);
@@ -25,16 +26,13 @@ public class ProcesoDeCancelacion implements Runnable, Proceso {
                 if (reservaAleatoria != null) {
                     if (cancelado) {
                         gestorDeReservas.cancelarReserva(reservaAleatoria); // Dentro del GestorDeReservas
-                        System.out.println("Hola soy el hilo " + Thread.currentThread().getName() +
-                                " y cancelé la reserva del asiento " + reservaAleatoria.getAsiento().getNumeroDeAsiento());
+                        Logs.Log(Thread.currentThread(), "Cancelé la reserva del asiento: " + reservaAleatoria.getAsiento().getNumeroDeAsiento());
                     } else {
                         gestorDeReservas.marcarComoChecked(reservaAleatoria);
-                        System.out.println("Hola soy el hilo " + Thread.currentThread().getName() +
-                                " y marqué como 'checked' la reserva del asiento " + reservaAleatoria.getAsiento().getNumeroDeAsiento());
+                        Logs.Log(Thread.currentThread(), "Marqué como 'checked' la reserva del asiento: " + reservaAleatoria.getAsiento().getNumeroDeAsiento());
                     }
-                } else {
-                    conReservasConfirmadas = false;
                 }
+                conReservasConfirmadas = gestorDeReservas.puedoGestionarAsientos();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -50,13 +48,13 @@ public class ProcesoDeCancelacion implements Runnable, Proceso {
     }
 
     private Reserva obtenerReservaAleatoriaDeConfirmadas() {
-        ArrayList<Reserva> reservasConfirmadas = new ArrayList<>(gestorDeReservas.getReservasConfirmadas());
-
-        if (!reservasConfirmadas.isEmpty()) {
+        var reservasConfirmadas = gestorDeReservas.getReservasConfirmadas();
+        var reservasConfirmadasNoCheckeadas = reservasConfirmadas.stream().filter(p -> p.getEstado() != EstadoReserva.CHECKED).toList();
+        if (!reservasConfirmadasNoCheckeadas.isEmpty()) {
             Random random = new Random();
-            int indiceAleatorio = random.nextInt(reservasConfirmadas.size());
+            int indiceAleatorio = random.nextInt(reservasConfirmadasNoCheckeadas.size());
 
-            return reservasConfirmadas.get(indiceAleatorio);
+            return reservasConfirmadasNoCheckeadas.get(indiceAleatorio);
         } else {
             return null;
         }

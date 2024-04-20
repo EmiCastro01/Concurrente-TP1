@@ -2,6 +2,8 @@ package tp1.procesos;
 import tp1.AsientoEstadoEnum;
 import tp1.EstadoReserva;
 import tp1.GestorDeReservas;
+import tp1.utils.Logs;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -13,7 +15,7 @@ public class ProcesoDePago implements Runnable{
     }
     @Override
     public void run(){
-        boolean conReservasPendientes = true;
+        boolean conReservasPendientes = gestorDeReservas.puedoGestionarAsientos();
         while(conReservasPendientes) {
             try {
                 Thread.sleep(20);
@@ -29,23 +31,23 @@ public class ProcesoDePago implements Runnable{
                 if (aprobado) {
 
                     gestorDeReservas.getReservasConfirmadas().add(reservaAleatoria);
-                    System.out.println("Hola soy el hilo " + Thread.currentThread().getName() + " y aprove el pago del asiento " +
-                            reservaAleatoria.getAsiento().getNumeroDeAsiento());
+                    Logs.Log(Thread.currentThread(), "Aprobe el pago del asiento " + reservaAleatoria.getAsiento().getNumeroDeAsiento());
+
                 } else {
                     reservaAleatoria.getAsiento().setEstadoDeAsiento(AsientoEstadoEnum.DESCARTADO);
                     reservaAleatoria.setEstado(EstadoReserva.CANCELADA);
                     gestorDeReservas.getReservasCanceladas().add(reservaAleatoria);
-                    System.out.println("Hola soy el hilo " + Thread.currentThread().getName() + " y rechace el pago del asiento " +
-                            reservaAleatoria.getAsiento().getNumeroDeAsiento());
+                    Logs.Log(Thread.currentThread(), "Rechace el pago del asiento " + reservaAleatoria.getAsiento().getNumeroDeAsiento());
+
                 }
 
-                conReservasPendientes = gestorDeReservas.getAsientosTotales() != 0;
+                conReservasPendientes = gestorDeReservas.puedoGestionarAsientos();
 
 
             }
             catch (IllegalArgumentException | InterruptedException e)
             {
-                System.out.println("Hola soy el hilo " + Thread.currentThread().getName() + " y tengo el siguiente error: " + e.getMessage());
+                Logs.Log(Thread.currentThread(), "Tengo el siguiente error: " + e.getMessage());
             }
         }
     }
