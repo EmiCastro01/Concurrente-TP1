@@ -24,8 +24,8 @@ public class Main {
       reserva1.start();
       reserva2.start();
       reserva3.start();
-      pago1.start();
-      pago2.start();
+     // pago1.start();
+     // pago2.start();
      try{
         reserva1.join();
         reserva2.join();
