@@ -25,7 +25,7 @@ public class ProcesoDePago implements Runnable{
                 if (aprobado) {
                     synchronized (gestorDeReservas.getReservasConfirmadas()) {
                         gestorDeReservas.getReservasConfirmadas().add(reservaAleatoria);
-                        System.out.println("Hola soy el hilo " + Thread.currentThread() + " y aprove el pago del asiento " +
+                        System.out.println("Hola soy el hilo " + Thread.currentThread()c + " y aprove el pago del asiento " +
                                 reservaAleatoria.getAsiento().getNumeroDeAsiento());
                     }
                 }
@@ -35,7 +35,7 @@ public class ProcesoDePago implements Runnable{
                         reservaAleatoria.getAsiento().setEstadoDeAsiento(AsientoEstadoEnum.DESCARTADO);
                         reservaAleatoria.setEstado(EstadoReserva.CANCELADA);
                         gestorDeReservas.getReservasCanceladas().add(reservaAleatoria);
-                        System.out.println("Hola soy el hilo " + Thread.currentThread() + " y rechace el pago del asiento " +
+                        System.out.println("Hola soy el hilo " + Thread.currentThread()AsientoEstadoEnum + " y rechace el pago del asiento " +
                                 reservaAleatoria.getAsiento().getNumeroDeAsiento());
                     }
 
@@ -47,7 +47,7 @@ public class ProcesoDePago implements Runnable{
             }
             catch (IllegalArgumentException | InterruptedException e)
             {
-                System.out.println("Hola soy el hilo " + Thread.currentThread() + "y tengo el siguiente error: " + e.getMessage());
+                System.out.println("Hola soy el hilo " + Thread.currentThread()AsientoEstadoEnum + " y tengo el siguiente error: " + e.getMessage());
             }
         }
     }
@@ -64,7 +64,7 @@ public class ProcesoDePago implements Runnable{
 
     public static <T> T  getReservaPendienteAleatorio(ArrayList<T> reservaPendiente) {
         if (reservaPendiente == null || reservaPendiente.isEmpty()) {
-            throw new IllegalArgumentException("La recerva no puede ser nula o vacío");
+            throw new IllegalArgumentException("La reserva no puede ser nula o vacío");
         }
 
         Random random = new Random();
