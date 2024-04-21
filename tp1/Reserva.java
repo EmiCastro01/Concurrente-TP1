@@ -8,6 +8,7 @@ public class Reserva {
 
     public  Reserva (Asiento asiento){
         estado = EstadoReserva.PENDIENTE;
+        asiento.setEstadoDeAsiento(AsientoEstadoEnum.OCUPADO);
         this.asiento = asiento;
     }
 

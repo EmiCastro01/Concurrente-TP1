@@ -38,16 +38,25 @@ public class ProcesoLogs  implements Runnable{
 
 
     public void WriteEndLog(double secondsDuration){
+        PrintLogLine();
         WriteInFile(String.format("Duración: %s |  Ocupación Total: %s",secondsDuration, GestorReservas.getOcupacionTotal()));
 
     }
     @Override
     public void run() {
+        PrintLogLine();
+    }
+
+    public void PrintLogLine(){
         if(printHeader){
-            WriteInFile("Canceladas | Aprobadas");
+            WriteInFile("Reservadas | Confirmadas | Canceladas | Aprobadas");
             printHeader = false;
         }
-        WriteInFile(String.format("%s      |%s",padLeft(GestorReservas.getCountReservasCanceladas(), 5, ' ' ),padLeft(GestorReservas.getCountReservasVerificadas(), 7, ' ')));
+        WriteInFile(String.format("%s|%s|%s|%s",
+                padRigth(GestorReservas.getCountReservasReservadas(), 11, ' ' ),
+                padRigth(GestorReservas.getCountReservasConfirmadas(), 13, ' '),
+                padRigth(GestorReservas.getCountReservasCanceladas(), 12, ' ' ),
+                padRigth(GestorReservas.getCountReservasVerificadas(), 10, ' ')));
     }
 
     private void WriteInFile(String text){
@@ -62,19 +71,18 @@ public class ProcesoLogs  implements Runnable{
         }
     }
 
-    private String padLeft(int value, int length, char charPad) {
-        return padLeft(""+value,length, charPad);
+    private String padRigth(int value, int length, char charPad) {
+        return padRigth(""+value,length, charPad);
     }
-    private String padLeft(String inputString, int length, char charPad) {
+    private String padRigth(String inputString, int length, char charPad) {
         if (inputString.length() >= length) {
             return inputString;
         }
         StringBuilder sb = new StringBuilder();
-        while (sb.length() < length - inputString.length()) {
+        sb.append(inputString);
+        while (sb.length() < length) {
             sb.append(charPad);
         }
-        sb.append(inputString);
-
         return sb.toString();
     }
 }

@@ -7,50 +7,16 @@ import tp1.utils.Logs;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ProcesoDePago implements Runnable{
-    private int demoraDelProcesoMilisegundos;
+public class ProcesoDePago implements Runnable, Proceso{
     private GestorDeReservas gestorDeReservas;
-    public ProcesoDePago(GestorDeReservas gestorDeReservas, int demoraDelProcesoMilisegundos)
+    public ProcesoDePago(GestorDeReservas gestorDeReservas)
     {
         this.gestorDeReservas = gestorDeReservas;
-        this.demoraDelProcesoMilisegundos = demoraDelProcesoMilisegundos;
     }
     @Override
     public void run(){
-        boolean conReservasPendientes = gestorDeReservas.puedoGestionarAsientos();
-        while(conReservasPendientes) {
-            try {
-                Thread.sleep(demoraDelProcesoMilisegundos);
-
-                var reservasPendientesDePago = gestorDeReservas.getReservasPendientesDePago();
-                var reservaAleatoria = getReservaPendienteAleatorio(reservasPendientesDePago);
-                if (reservaAleatoria == null) {
-                    continue;
-                }
-
-                var aprobado = generarBooleanoConProbabilidad(0.9);
-                reservasPendientesDePago.remove(reservaAleatoria);
-                if (aprobado) {
-
-                    gestorDeReservas.getReservasConfirmadas().add(reservaAleatoria);
-                    Logs.Log(Thread.currentThread(), "Aprobe el pago del asiento " + reservaAleatoria.getAsiento().getNumeroDeAsiento());
-
-                } else {
-                    reservaAleatoria.getAsiento().setEstadoDeAsiento(AsientoEstadoEnum.DESCARTADO);
-                    reservaAleatoria.setEstado(EstadoReserva.CANCELADA);
-                    gestorDeReservas.getReservasCanceladas().add(reservaAleatoria);
-                    Logs.Log(Thread.currentThread(), "Rechace el pago del asiento " + reservaAleatoria.getAsiento().getNumeroDeAsiento());
-
-                }
-
-                conReservasPendientes = gestorDeReservas.puedoGestionarAsientos();
-
-
-            }
-            catch (Exception e)
-            {
-                Logs.Log(Thread.currentThread(), "Tengo el siguiente error: " + e.getMessage());
-            }
+        while(validarSiContinua()) {
+            procesar();
         }
     }
 
@@ -64,14 +30,20 @@ public class ProcesoDePago implements Runnable{
         return valorAleatorio < probabilidadDeAprobacion;
     }
 
-    public static <T> T  getReservaPendienteAleatorio(ArrayList<T> reservaPendiente) {
-        if (reservaPendiente == null || reservaPendiente.isEmpty()) {
-            return null;
-        }
 
-        Random random = new Random();
-        int indiceAleatorio = random.nextInt(reservaPendiente.size());
-        return reservaPendiente.get(indiceAleatorio);
+
+    @Override
+    public boolean validarSiContinua() {
+        return gestorDeReservas.puedoGestionarAsientos();
     }
 
+    @Override
+    public void procesar() {
+        gestorDeReservas.confirmarPago();
+    }
+
+    @Override
+    public void esperar() {
+
+    }
 }
