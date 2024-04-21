@@ -8,55 +8,27 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ProcesoDeVerificacion implements Runnable, Proceso {
-
     private GestorDeReservas gestorDeReservas;
-    private int demoraDelProcesoMilisegundos;
-    public ProcesoDeVerificacion(GestorDeReservas gestorDeReservas, int demoraDelProcesoMilisegundos) {
+    public ProcesoDeVerificacion(GestorDeReservas gestorDeReservas) {
         this.gestorDeReservas = gestorDeReservas;
-        this.demoraDelProcesoMilisegundos = demoraDelProcesoMilisegundos;
+
     }
 
     @Override
     public void run() {
-        while (gestorDeReservas.puedoGestionarAsientos()) {
-            try {
-                Thread.sleep(demoraDelProcesoMilisegundos);
-                //synchronized (gestorDeReservas.getReservasConfirmadas()) {
-                    ArrayList<Reserva> reservasConfirmadas = gestorDeReservas.getReservasConfirmadas();
-                    Reserva reservaAleatoria = getReservaConfirmadaAleatoria(reservasConfirmadas);
-                    if(reservaAleatoria == null){
-                        continue;
-                    }
-                    if (reservaAleatoria.getEstado() == EstadoReserva.CHECKED) {
-                        reservasConfirmadas.remove(reservaAleatoria);
-                        gestorDeReservas.getReservasVerificadas().add(reservaAleatoria);
-                        Logs.Log(Thread.currentThread(), "Verifiqué la reserva del asiento " , reservaAleatoria.getAsiento().getNumeroDeAsiento());
-                    }
-                //}
-            } catch (Exception e) {
-                Logs.Error(Thread.currentThread(), "Me cerré " + e.getMessage());
-                Thread.currentThread().interrupt();
-            }
+        while (validarSiContinua()) {
+            procesar();
         }
-    }
-    public Reserva getReservaConfirmadaAleatoria(ArrayList<Reserva> reservasConfirmadas) {
-        if (reservasConfirmadas == null || reservasConfirmadas.isEmpty()) {
-            return null;
-        }
-        Random random = new Random();
-        int indiceAleatorio = random.nextInt(reservasConfirmadas.size());
-        return reservasConfirmadas.get(indiceAleatorio);
-
     }
 
     @Override
     public boolean validarSiContinua() {
-        return false;
+        return gestorDeReservas.puedoGestionarAsientos();
     }
 
     @Override
     public void procesar() {
-
+        gestorDeReservas.verificarReserva();
     }
 
     @Override

@@ -51,23 +51,8 @@ public class ProcesoDeCancelacion implements Runnable, Proceso {
 
     @Override
     public void procesar() {
-        gestorDeReservas.cancelarReserva(null);
-        try {
-            Thread.sleep(demoraDelProcesoMilisegundos);
-            var cancelado = generarBooleanoConProbabilidad(0.1);
-            var reservaAleatoria = obtenerReservaAleatoriaDeConfirmadas();
-            if (reservaAleatoria != null) {
-                if (cancelado) {
-                    gestorDeReservas.cancelarReserva(reservaAleatoria); // Dentro del GestorDeReservas
-                    Logs.Log(Thread.currentThread(), "Cancelé la reserva del asiento: " , reservaAleatoria.getAsiento().getNumeroDeAsiento());
-                } else {
-                    gestorDeReservas.marcarComoChecked(reservaAleatoria);
-                    Logs.Log(Thread.currentThread(), "Marqué como 'checked' la reserva del asiento: " , reservaAleatoria.getAsiento().getNumeroDeAsiento());
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        gestorDeReservas.cancelarReserva();
+
     }
 
     @Override
