@@ -30,11 +30,11 @@ public class ProcesoDeVerificacion implements Runnable, Proceso {
                     if (reservaAleatoria.getEstado() == EstadoReserva.CHECKED) {
                         reservasConfirmadas.remove(reservaAleatoria);
                         gestorDeReservas.getReservasVerificadas().add(reservaAleatoria);
-                        Logs.Log(Thread.currentThread(), "Verifiqué la reserva del asiento " + reservaAleatoria.getAsiento().getNumeroDeAsiento());
+                        Logs.Log(Thread.currentThread(), "Verifiqué la reserva del asiento " , reservaAleatoria.getAsiento().getNumeroDeAsiento());
                     }
                 //}
             } catch (Exception e) {
-                Logs.Log(Thread.currentThread(), "Me cerré " + e.getMessage());
+                Logs.Error(Thread.currentThread(), "Me cerré " + e.getMessage());
                 Thread.currentThread().interrupt();
             }
         }

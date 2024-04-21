@@ -38,11 +38,16 @@ public class ProcesoLogs  implements Runnable{
 
 
     public void WriteEndLog(double secondsDuration){
+        PrintLogLine();
         WriteInFile(String.format("Duración: %s |  Ocupación Total: %s",secondsDuration, GestorReservas.getOcupacionTotal()));
 
     }
     @Override
     public void run() {
+        PrintLogLine();
+    }
+
+    public void PrintLogLine(){
         if(printHeader){
             WriteInFile("Reservadas | Confirmadas | Canceladas | Aprobadas");
             printHeader = false;

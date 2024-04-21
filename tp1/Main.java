@@ -34,7 +34,7 @@ public class Main {
 
         ProcesoLogs procesoLog = new ProcesoLogs(gestorReservas);
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        executor.scheduleAtFixedRate(procesoLog, 0, 200, TimeUnit.MILLISECONDS);
+        executor.scheduleAtFixedRate(procesoLog, 0, 10, TimeUnit.MILLISECONDS);
 
 
         //Hilos de reserva
@@ -42,8 +42,8 @@ public class Main {
         threads.add(new Thread(new ProcesoDeReserva(gestorReservas), "Reserva2"));
         threads.add(new Thread(new ProcesoDeReserva(gestorReservas), "Reserva3"));
         //Hilos de Pago
-        threads.add(new Thread(new ProcesoDePago(gestorReservas), "Pago1"));
-        threads.add(new Thread(new ProcesoDePago(gestorReservas), "Pago2"));
+//        threads.add(new Thread(new ProcesoDePago(gestorReservas), "Pago1"));
+//        threads.add(new Thread(new ProcesoDePago(gestorReservas), "Pago2"));
 //        //Hilos de Cancelación
 //        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas, demoraProcesoCancelacion), "Cancelacion1"));
 //        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas, demoraProcesoCancelacion), "Cancelacion2"));
@@ -76,6 +76,6 @@ public class Main {
 
     public static int obtenerDemoraParaProceso(){
         Random random = new Random();
-        return random.nextInt(200);
+        return random.nextInt(0,1);
     }
 }

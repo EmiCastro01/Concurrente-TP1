@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GestorDeReservas {
-    private Avion avion;
+    private final Avion avion;
     private final int milisProcesoReserva;
     private final int milisProcesoPago;
     private final int milisProcesoCancelacion;
@@ -79,67 +79,69 @@ public class GestorDeReservas {
         try {
             avion.getLockListadoAsientos().lock();
             asientoAReservar = this.avion.getAsiento(numeroDeAsiento);
-        } finally {
-            avion.getLockListadoAsientos().unlock();
-        }
-        synchronized (asientoAReservar){
-            if (asientoAReservar.getEstadoDeAsiento().equals(AsientoEstadoEnum.LIBRE)) {
-                Reserva reserva = new Reserva(this.avion.getAsiento(numeroDeAsiento));
-                synchronized (reservasPendientesDePago){
-                    reservasPendientesDePago.add(reserva);
-                    try {
-                        Thread.sleep(milisProcesoReserva);
-                    } catch (Exception e) {
+            synchronized (asientoAReservar) {
+                avion.getLockListadoAsientos().unlock();
+                if (asientoAReservar.getEstadoDeAsiento().equals(AsientoEstadoEnum.LIBRE)) {
+                    Reserva reserva = new Reserva(asientoAReservar);
+                    synchronized (reservasPendientesDePago) {
+                        reservasPendientesDePago.add(reserva);
+                        try {
+                            Thread.sleep(milisProcesoReserva);
+                        } catch (Exception e) {
 
+                        }
+                        Logs.Log(Thread.currentThread(), "Agregué la reserva a pendientes de pago: ", reserva.getAsiento().getNumeroDeAsiento());
                     }
+                    return reserva;
+                } else {
+                    return null;
                 }
-                Logs.Log(Thread.currentThread(), "Agregué la reserva a pendientes de pago: " + reserva.getAsiento().getNumeroDeAsiento());
-                return reserva;
-            } else {
-                return null;
             }
+        } catch (Exception ex){
+            Logs.Error(Thread.currentThread(), ex.getMessage());
+            avion.getLockListadoAsientos().unlock();
+            return null;
         }
-
-
     }
 
     public void confirmarPago() {
         try {
             Reserva reservaAleatoria = null;
-            synchronized (reservasPendientesDePago){
+            synchronized (reservasPendientesDePago) {
                 reservaAleatoria = getReservaAleatorio(reservasPendientesDePago);
-            }
-            if (reservaAleatoria == null) {
-                return;
-            }
-            synchronized (reservaAleatoria) {
-                if (reservaAleatoria.getEstado() != EstadoReserva.PENDIENTE) {
+                if (reservaAleatoria == null) {
                     return;
                 }
-                var aprobado = CalculadoraProbabilidad.generarBooleanoConProbabilidad(0.9);
-                synchronized (reservasPendientesDePago){
-                    reservasPendientesDePago.remove(reservaAleatoria);
-                }
 
-                if (aprobado) {
-                    synchronized (reservasConfirmadas) {
-                        reservasConfirmadas.add(reservaAleatoria);
-                        Thread.sleep(milisProcesoPago);
+                synchronized (reservaAleatoria) {
+                    if (reservaAleatoria.getEstado() != EstadoReserva.PENDIENTE || !reservasPendientesDePago.contains(reservaAleatoria)) {
+                        return;
                     }
-                    Logs.Log(Thread.currentThread(), "Aprobe el pago del asiento " + reservaAleatoria.getAsiento().getNumeroDeAsiento());
+                    var aprobado = CalculadoraProbabilidad.generarBooleanoConProbabilidad(0.9);
+                    synchronized (reservasPendientesDePago) {
+                        reservasPendientesDePago.remove(reservaAleatoria);
+                    }
 
-                } else {
-                    synchronized (reservasConfirmadas) {
-                        reservaAleatoria.getAsiento().setEstadoDeAsiento(AsientoEstadoEnum.DESCARTADO);
-                        reservaAleatoria.setEstado(EstadoReserva.CANCELADA);
-                        reservasConfirmadas.add(reservaAleatoria);
-                        Thread.sleep(milisProcesoPago);
+                    if (aprobado) {
+                        synchronized (reservasConfirmadas) {
+                            reservasConfirmadas.add(reservaAleatoria);
+                            Thread.sleep(milisProcesoPago);
+                        }
+                        Logs.Log(Thread.currentThread(), "Aprobe el pago del asiento ", reservaAleatoria.getAsiento().getNumeroDeAsiento());
+
+                    } else {
+                        synchronized (reservasCanceladas) {
+                            reservaAleatoria.getAsiento().setEstadoDeAsiento(AsientoEstadoEnum.DESCARTADO);
+                            reservaAleatoria.setEstado(EstadoReserva.CANCELADA);
+                            reservasCanceladas.add(reservaAleatoria);
+                            Thread.sleep(milisProcesoPago);
+                        }
+                        Logs.Log(Thread.currentThread(), "Rechace el pago del asiento ", reservaAleatoria.getAsiento().getNumeroDeAsiento());
                     }
-                    Logs.Log(Thread.currentThread(), "Rechace el pago del asiento " + reservaAleatoria.getAsiento().getNumeroDeAsiento());
                 }
             }
         } catch (Exception e) {
-            Logs.Log(Thread.currentThread(), e.getMessage());
+            Logs.Error(Thread.currentThread(), e.getMessage());
         }
 
 
@@ -159,14 +161,28 @@ public class GestorDeReservas {
     }
 
     public boolean puedoGestionarAsientos(){
-        return getCountReservasCanceladas() + getCountReservasVerificadas() != avion.getCantidadTotalAsientos();
+        var pendientesPago = getCountReservasReservadas();
+        var countConfirmadas = getCountReservasConfirmadas();
+        var countCanceladas = getCountReservasCanceladas();
+        var countVerificadas = getCountReservasVerificadas();
+        var totalProcesadas =
+                pendientesPago +
+                countConfirmadas +
+                countCanceladas +
+                countVerificadas;
+        var countTotal = avion.getCantidadTotalAsientos();
+        if( totalProcesadas != countTotal){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     private static <T> T  getReservaAleatorio(ArrayList<T> reservaPendiente) {
         if (reservaPendiente == null || reservaPendiente.isEmpty()) {
             return null;
         }
-
         Random random = new Random();
         int indiceAleatorio = random.nextInt(reservaPendiente.size());
         return reservaPendiente.get(indiceAleatorio);
