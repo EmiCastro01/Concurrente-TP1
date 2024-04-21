@@ -42,8 +42,8 @@ public class Main {
         threads.add(new Thread(new ProcesoDeReserva(gestorReservas), "Reserva2"));
         threads.add(new Thread(new ProcesoDeReserva(gestorReservas), "Reserva3"));
         //Hilos de Pago
-//        threads.add(new Thread(new ProcesoDePago(gestorReservas, demoraProcesoPagos), "Pago1"));
-//        threads.add(new Thread(new ProcesoDePago(gestorReservas, demoraProcesoPagos), "Pago2"));
+        threads.add(new Thread(new ProcesoDePago(gestorReservas), "Pago1"));
+        threads.add(new Thread(new ProcesoDePago(gestorReservas), "Pago2"));
 //        //Hilos de Cancelación
 //        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas, demoraProcesoCancelacion), "Cancelacion1"));
 //        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas, demoraProcesoCancelacion), "Cancelacion2"));

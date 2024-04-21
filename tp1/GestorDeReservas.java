@@ -3,9 +3,11 @@ package tp1;
 
 import tp1.avion.Asiento;
 import tp1.avion.Avion;
+import tp1.utils.CalculadoraProbabilidad;
 import tp1.utils.Logs;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GestorDeReservas {
     private Avion avion;
@@ -101,6 +103,48 @@ public class GestorDeReservas {
 
     }
 
+    public void confirmarPago() {
+        try {
+            Reserva reservaAleatoria = null;
+            synchronized (reservasPendientesDePago){
+                reservaAleatoria = getReservaAleatorio(reservasPendientesDePago);
+            }
+            if (reservaAleatoria == null) {
+                return;
+            }
+            synchronized (reservaAleatoria) {
+                if (reservaAleatoria.getEstado() != EstadoReserva.PENDIENTE) {
+                    return;
+                }
+                var aprobado = CalculadoraProbabilidad.generarBooleanoConProbabilidad(0.9);
+                synchronized (reservasPendientesDePago){
+                    reservasPendientesDePago.remove(reservaAleatoria);
+                }
+
+                if (aprobado) {
+                    synchronized (reservasConfirmadas) {
+                        reservasConfirmadas.add(reservaAleatoria);
+                        Thread.sleep(milisProcesoPago);
+                    }
+                    Logs.Log(Thread.currentThread(), "Aprobe el pago del asiento " + reservaAleatoria.getAsiento().getNumeroDeAsiento());
+
+                } else {
+                    synchronized (reservasConfirmadas) {
+                        reservaAleatoria.getAsiento().setEstadoDeAsiento(AsientoEstadoEnum.DESCARTADO);
+                        reservaAleatoria.setEstado(EstadoReserva.CANCELADA);
+                        reservasConfirmadas.add(reservaAleatoria);
+                        Thread.sleep(milisProcesoPago);
+                    }
+                    Logs.Log(Thread.currentThread(), "Rechace el pago del asiento " + reservaAleatoria.getAsiento().getNumeroDeAsiento());
+                }
+            }
+        } catch (Exception e) {
+            Logs.Log(Thread.currentThread(), e.getMessage());
+        }
+
+
+    }
+
     public Avion getAvion(){
         return this.avion;
     }
@@ -117,4 +161,16 @@ public class GestorDeReservas {
     public boolean puedoGestionarAsientos(){
         return getCountReservasCanceladas() + getCountReservasVerificadas() != avion.getCantidadTotalAsientos();
     }
+
+    private static <T> T  getReservaAleatorio(ArrayList<T> reservaPendiente) {
+        if (reservaPendiente == null || reservaPendiente.isEmpty()) {
+            return null;
+        }
+
+        Random random = new Random();
+        int indiceAleatorio = random.nextInt(reservaPendiente.size());
+        return reservaPendiente.get(indiceAleatorio);
+    }
+
+
 }

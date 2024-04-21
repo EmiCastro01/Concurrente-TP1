@@ -11,12 +11,10 @@ import java.util.stream.IntStream;
 
 
 public class ProcesoDeReserva implements Runnable, Proceso {
-    private int demoraDelProcesoMilisegundos;
     private GestorDeReservas gestorDeReservas;
     private List<Integer> asientosPosibles;
 
     public ProcesoDeReserva(GestorDeReservas gestorDeReservas) {
-        this.demoraDelProcesoMilisegundos = demoraDelProcesoMilisegundos;
         this.gestorDeReservas = gestorDeReservas;
         this.asientosPosibles=new ArrayList<>();
 
