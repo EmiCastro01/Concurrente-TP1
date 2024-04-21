@@ -8,17 +8,19 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ProcesoDePago implements Runnable{
+    private int demoraDelProcesoMilisegundos;
     private GestorDeReservas gestorDeReservas;
-    public ProcesoDePago(GestorDeReservas gestorDeReservas)
+    public ProcesoDePago(GestorDeReservas gestorDeReservas, int demoraDelProcesoMilisegundos)
     {
         this.gestorDeReservas = gestorDeReservas;
+        this.demoraDelProcesoMilisegundos = demoraDelProcesoMilisegundos;
     }
     @Override
     public void run(){
         boolean conReservasPendientes = gestorDeReservas.puedoGestionarAsientos();
         while(conReservasPendientes) {
             try {
-                //Thread.sleep(20);
+                Thread.sleep(demoraDelProcesoMilisegundos);
 
                 var reservasPendientesDePago = gestorDeReservas.getReservasPendientesDePago();
                 var reservaAleatoria = getReservaPendienteAleatorio(reservasPendientesDePago);

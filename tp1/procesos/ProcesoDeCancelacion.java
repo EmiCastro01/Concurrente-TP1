@@ -10,9 +10,10 @@ import java.util.Random;
 
 public class ProcesoDeCancelacion implements Runnable, Proceso {
     private final GestorDeReservas gestorDeReservas;
-
-    public ProcesoDeCancelacion(GestorDeReservas gestorDeReservas) {
+    private int demoraDelProcesoMilisegundos;
+    public ProcesoDeCancelacion(GestorDeReservas gestorDeReservas, int demoraDelProcesoMilisegundos) {
         this.gestorDeReservas = gestorDeReservas;
+        this.demoraDelProcesoMilisegundos = demoraDelProcesoMilisegundos;
     }
 
     @Override
@@ -20,7 +21,7 @@ public class ProcesoDeCancelacion implements Runnable, Proceso {
         boolean conReservasConfirmadas = gestorDeReservas.puedoGestionarAsientos();
         while (conReservasConfirmadas) {
             try {
-                //Thread.sleep(20);
+                Thread.sleep(demoraDelProcesoMilisegundos);
                 var cancelado = generarBooleanoConProbabilidad(0.1);
                 var reservaAleatoria = obtenerReservaAleatoriaDeConfirmadas();
                 if (reservaAleatoria != null) {

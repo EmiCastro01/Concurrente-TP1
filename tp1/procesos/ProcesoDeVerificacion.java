@@ -10,17 +10,17 @@ import java.util.Random;
 public class ProcesoDeVerificacion implements Runnable, Proceso {
 
     private GestorDeReservas gestorDeReservas;
-
-    public ProcesoDeVerificacion(GestorDeReservas gestorDeReservas) {
+    private int demoraDelProcesoMilisegundos;
+    public ProcesoDeVerificacion(GestorDeReservas gestorDeReservas, int demoraDelProcesoMilisegundos) {
         this.gestorDeReservas = gestorDeReservas;
+        this.demoraDelProcesoMilisegundos = demoraDelProcesoMilisegundos;
     }
 
     @Override
     public void run() {
-        boolean continuar= true;
-        while (continuar) {
+        while (gestorDeReservas.puedoGestionarAsientos()) {
             try {
-                //Thread.sleep(150);
+                Thread.sleep(demoraDelProcesoMilisegundos);
                 //synchronized (gestorDeReservas.getReservasConfirmadas()) {
                     ArrayList<Reserva> reservasConfirmadas = gestorDeReservas.getReservasConfirmadas();
                     Reserva reservaAleatoria = getReservaConfirmadaAleatoria(reservasConfirmadas);
@@ -34,7 +34,7 @@ public class ProcesoDeVerificacion implements Runnable, Proceso {
                     }
                 //}
             } catch (Exception e) {
-                Logs.Log(Thread.currentThread(), "Me cerré ");
+                Logs.Log(Thread.currentThread(), "Me cerré " + e.getMessage());
                 Thread.currentThread().interrupt();
             }
         }

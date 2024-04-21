@@ -35,22 +35,23 @@ public class Main {
 
 
         //Hilos de reserva
-        threads.add(new Thread(new ProcesoDeReserva("R1", gestorReservas, avion1), "Reserva1"));
-        threads.add(new Thread(new ProcesoDeReserva("R2", gestorReservas, avion1), "Reserva2"));
-        threads.add(new Thread(new ProcesoDeReserva("R3", gestorReservas, avion1), "Reserva3"));
-
-
+        var demoraProcesoReserva = obtenerDemoraParaProceso();
+        threads.add(new Thread(new ProcesoDeReserva(gestorReservas, demoraProcesoReserva), "Reserva1"));
+        threads.add(new Thread(new ProcesoDeReserva(gestorReservas, demoraProcesoReserva), "Reserva2"));
+        threads.add(new Thread(new ProcesoDeReserva(gestorReservas, demoraProcesoReserva), "Reserva3"));
         //Hilos de Pago
-        threads.add(new Thread(new ProcesoDePago(gestorReservas), "Pago1"));
-        threads.add(new Thread(new ProcesoDePago(gestorReservas), "Pago2"));
+        var demoraProcesoPagos = obtenerDemoraParaProceso();
+        threads.add(new Thread(new ProcesoDePago(gestorReservas, demoraProcesoPagos), "Pago1"));
+        threads.add(new Thread(new ProcesoDePago(gestorReservas, demoraProcesoPagos), "Pago2"));
         //Hilos de Cancelación
-        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas), "Cancelacion1"));
-        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas), "Cancelacion2"));
-        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas), "Cancelacion3"));
+        var demoraProcesoCancelacion = obtenerDemoraParaProceso();
+        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas, demoraProcesoCancelacion), "Cancelacion1"));
+        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas, demoraProcesoCancelacion), "Cancelacion2"));
+        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas, demoraProcesoCancelacion), "Cancelacion3"));
         //Hilos de Verificación
-        threads.add(new Thread(new ProcesoDeVerificacion(gestorReservas), "Verificacion1"));
-        threads.add(new Thread(new ProcesoDeVerificacion(gestorReservas), "Verificacion2"));
-
+        var demoraProcesoVerificacion = obtenerDemoraParaProceso();
+        threads.add(new Thread(new ProcesoDeVerificacion(gestorReservas, demoraProcesoVerificacion), "Verificacion1"));
+        threads.add(new Thread(new ProcesoDeVerificacion(gestorReservas, demoraProcesoVerificacion), "Verificacion2"));
 
 
         for (Thread thread : threads) {
@@ -72,5 +73,10 @@ public class Main {
         procesoLog.WriteEndLog((double) timeElapsed / 1000);
 
 
+    }
+
+    public static int obtenerDemoraParaProceso(){
+        Random random = new Random();
+        return random.nextInt(200);
     }
 }

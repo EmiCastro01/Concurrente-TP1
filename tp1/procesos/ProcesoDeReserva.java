@@ -13,15 +13,14 @@ import java.util.stream.IntStream;
 public class ProcesoDeReserva implements Runnable, Proceso {
 
 
-    private String nombre;
+    private int demoraDelProcesoMilisegundos;
     private GestorDeReservas gestorDeReservas;
     private List<Integer> asientosPosibles;
-    private Avion avion;
 
-    public ProcesoDeReserva(String nombre, GestorDeReservas gestorDeReservas, Avion avion) {
+
+    public ProcesoDeReserva(GestorDeReservas gestorDeReservas, int demoraDelProcesoMilisegundos) {
+        this.demoraDelProcesoMilisegundos = demoraDelProcesoMilisegundos;
         this.gestorDeReservas = gestorDeReservas;
-        this.avion = avion;
-        this.nombre = nombre;
         this.asientosPosibles=new ArrayList<>();
 
     }
@@ -30,6 +29,12 @@ public class ProcesoDeReserva implements Runnable, Proceso {
     @Override
     public void run() {
         while (!this.gestorDeReservas.getAvion().estaCompleto()) {
+            try{
+                Thread.sleep(demoraDelProcesoMilisegundos);
+
+            }catch(Exception e){
+
+            }
             asientosPosibles = IntStream.iterate(0, i -> i + 1)
                     .limit(185)
                     .boxed()
