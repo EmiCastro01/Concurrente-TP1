@@ -8,12 +8,9 @@ public class Asiento {
     private AsientoEstadoEnum estadoDeAsiento;
     private Integer numeroDeAsiento;
 
-    public Asiento(){
+    public Asiento(int numeroAsiento){
+        this.numeroDeAsiento = numeroAsiento;
         this.estadoDeAsiento = AsientoEstadoEnum.LIBRE;
-    }
-
-    public void setNumeroDeAsiento(int numeroDeAsiento){
-        this.numeroDeAsiento = numeroDeAsiento;
     }
 
     public void setEstadoDeAsiento(AsientoEstadoEnum estadoDeAsiento){

@@ -20,8 +20,11 @@ import java.util.concurrent.TimeUnit;
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
-        Avion avion1 = new Avion();
-        GestorDeReservas gestorReservas = new GestorDeReservas(avion1);
+        var demoraProcesoReserva = obtenerDemoraParaProceso();
+        var demoraProcesoPagos = obtenerDemoraParaProceso();
+        var demoraProcesoCancelacion = obtenerDemoraParaProceso();
+        var demoraProcesoVerificacion = obtenerDemoraParaProceso();
+        GestorDeReservas gestorReservas = new GestorDeReservas(demoraProcesoReserva, demoraProcesoPagos, demoraProcesoCancelacion, demoraProcesoVerificacion);
 
         Instant start = Instant.now();
 
@@ -35,23 +38,19 @@ public class Main {
 
 
         //Hilos de reserva
-        var demoraProcesoReserva = obtenerDemoraParaProceso();
-        threads.add(new Thread(new ProcesoDeReserva(gestorReservas, demoraProcesoReserva), "Reserva1"));
-        threads.add(new Thread(new ProcesoDeReserva(gestorReservas, demoraProcesoReserva), "Reserva2"));
-        threads.add(new Thread(new ProcesoDeReserva(gestorReservas, demoraProcesoReserva), "Reserva3"));
+        threads.add(new Thread(new ProcesoDeReserva(gestorReservas), "Reserva1"));
+        threads.add(new Thread(new ProcesoDeReserva(gestorReservas), "Reserva2"));
+        threads.add(new Thread(new ProcesoDeReserva(gestorReservas), "Reserva3"));
         //Hilos de Pago
-        var demoraProcesoPagos = obtenerDemoraParaProceso();
-        threads.add(new Thread(new ProcesoDePago(gestorReservas, demoraProcesoPagos), "Pago1"));
-        threads.add(new Thread(new ProcesoDePago(gestorReservas, demoraProcesoPagos), "Pago2"));
-        //Hilos de Cancelación
-        var demoraProcesoCancelacion = obtenerDemoraParaProceso();
-        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas, demoraProcesoCancelacion), "Cancelacion1"));
-        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas, demoraProcesoCancelacion), "Cancelacion2"));
-        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas, demoraProcesoCancelacion), "Cancelacion3"));
-        //Hilos de Verificación
-        var demoraProcesoVerificacion = obtenerDemoraParaProceso();
-        threads.add(new Thread(new ProcesoDeVerificacion(gestorReservas, demoraProcesoVerificacion), "Verificacion1"));
-        threads.add(new Thread(new ProcesoDeVerificacion(gestorReservas, demoraProcesoVerificacion), "Verificacion2"));
+//        threads.add(new Thread(new ProcesoDePago(gestorReservas, demoraProcesoPagos), "Pago1"));
+//        threads.add(new Thread(new ProcesoDePago(gestorReservas, demoraProcesoPagos), "Pago2"));
+//        //Hilos de Cancelación
+//        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas, demoraProcesoCancelacion), "Cancelacion1"));
+//        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas, demoraProcesoCancelacion), "Cancelacion2"));
+//        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas, demoraProcesoCancelacion), "Cancelacion3"));
+//        //Hilos de Verificación
+//        threads.add(new Thread(new ProcesoDeVerificacion(gestorReservas, demoraProcesoVerificacion), "Verificacion1"));
+//        threads.add(new Thread(new ProcesoDeVerificacion(gestorReservas, demoraProcesoVerificacion), "Verificacion2"));
 
 
         for (Thread thread : threads) {
