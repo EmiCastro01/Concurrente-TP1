@@ -31,8 +31,4 @@ public class ProcesoDeVerificacion implements Runnable, Proceso {
         gestorDeReservas.verificarReserva();
     }
 
-    @Override
-    public void esperar() {
-
-    }
 }

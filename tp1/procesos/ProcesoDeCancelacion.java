@@ -10,40 +10,15 @@ import java.util.Random;
 
 public class ProcesoDeCancelacion implements Runnable, Proceso {
     private final GestorDeReservas gestorDeReservas;
-    private int demoraDelProcesoMilisegundos;
-    public ProcesoDeCancelacion(GestorDeReservas gestorDeReservas, int demoraDelProcesoMilisegundos) {
+    public ProcesoDeCancelacion(GestorDeReservas gestorDeReservas) {
         this.gestorDeReservas = gestorDeReservas;
-        this.demoraDelProcesoMilisegundos = demoraDelProcesoMilisegundos;
     }
-
     @Override
     public void run() {
         while (validarSiContinua()) {
             procesar();
         }
     }
-
-    private boolean generarBooleanoConProbabilidad(double probabilidad) {
-        if (probabilidad < 0 || probabilidad > 1) {
-            throw new IllegalArgumentException("La probabilidad debe estar entre 0 y 1");
-        }
-        var random = new Random();
-        return random.nextDouble() < probabilidad;
-    }
-
-    private Reserva obtenerReservaAleatoriaDeConfirmadas() {
-        var reservasConfirmadas = gestorDeReservas.getReservasConfirmadas();
-        var reservasConfirmadasNoCheckeadas = reservasConfirmadas.stream().filter(p -> p.getEstado() != EstadoReserva.CHECKED).toList();
-        if (!reservasConfirmadasNoCheckeadas.isEmpty()) {
-            Random random = new Random();
-            int indiceAleatorio = random.nextInt(reservasConfirmadasNoCheckeadas.size());
-
-            return reservasConfirmadasNoCheckeadas.get(indiceAleatorio);
-        } else {
-            return null;
-        }
-    }
-
     @Override
     public boolean validarSiContinua() {
         return gestorDeReservas.puedoGestionarAsientos();
@@ -52,11 +27,5 @@ public class ProcesoDeCancelacion implements Runnable, Proceso {
     @Override
     public void procesar() {
         gestorDeReservas.cancelarReserva();
-
-    }
-
-    @Override
-    public void esperar() {
-
     }
 }

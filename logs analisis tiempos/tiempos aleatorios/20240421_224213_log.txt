@@ -1,0 +1,167 @@
+Tiempos por proceso
+Reserva | Confirmación Pagos | Cancelación | Validación
+68ms    |104ms               |113ms        |94ms       
+
+Reservadas | Confirmadas | Canceladas | Aprobadas //Todos los procesos inician al mismo momento
+0          |0            |0           |0          //En un principio los 3 procesos que dependen de reservas (Confirmadas, Canceladas, Aprobadas)
+2          |0            |0           |0          //no tienen modificaciones de cantidades ya que recien están empezando a ingresar
+4          |1            |0           |0          //El numero de reservas pendientes de pago va aumentando a medida que va transcurriendo el tiempo
+5          |2            |0           |0          //y ya se empieza a ver que los demás procesos van capturando reservas y las aprueban o cancelan
+8          |1            |0           |1          //Aproximadamente a la mitad del tiempo total de demora del programa se puede apreciar 
+9          |0            |2           |2          //como el numero de reservas pendientes de pago se estanca y comienza a disminuir. En este punto todos los asientos del avión
+10         |2            |2           |2          //fueron reservados y el proceso de reserva se mantendrá hasta el final de la ejecución intentando reservar
+12         |2            |2           |3          //asientos que ya fueron ocupados.
+14         |1            |4           |3          //Los demás procesos van haciendo fluir las reservas hasta los estados finales, hasta que todas quedan Verificadas o Cancelada
+14         |1            |4           |4          //Podemos notar que al tomarse todos los asientos del avion, se genera un incremento de las reservas Confirmadas,  
+17         |1            |4           |4          //entendemos que se da por que el proceso de reserva deja de solicitar la variable de reservas pendientes para agregar  
+19         |0            |4           |5          //reservas y eso permite al proceso de confirmación de pagos trabajar con mayor fluidez
+22         |1            |4           |6         
+23         |1            |4           |7         
+25         |2            |4           |7         
+27         |2            |4           |8         
+29         |1            |5           |9         
+31         |2            |5           |9         
+33         |1            |5           |10        
+34         |2            |5           |11        
+36         |2            |5           |12        
+37         |3            |5           |13        
+39         |3            |5           |14        
+41         |2            |5           |16        
+43         |1            |6           |17        
+45         |0            |6           |18        
+45         |1            |7           |18        
+47         |0            |8           |19        
+47         |0            |9           |19        
+48         |1            |9           |19        
+50         |1            |9           |19        
+53         |0            |9           |20        
+54         |2            |9           |20        
+57         |0            |10          |21        
+58         |2            |10          |21        
+61         |0            |11          |21        
+62         |1            |12          |22        
+63         |1            |12          |23        
+65         |1            |12          |23        
+66         |3            |12          |24        
+69         |1            |12          |25        
+70         |2            |12          |27        
+72         |2            |12          |28        
+74         |0            |12          |29        
+75         |2            |12          |30        
+77         |2            |12          |31        
+79         |2            |12          |32        
+81         |2            |12          |32        
+84         |1            |12          |33        
+85         |2            |12          |35        
+86         |2            |13          |36        
+89         |1            |13          |37        
+90         |1            |13          |38        
+93         |1            |13          |38        
+93         |1            |13          |40        
+95         |2            |13          |40        
+97         |3            |14          |40        
+98         |3            |14          |41        
+100        |2            |15          |42        
+101        |3            |15          |44        
+101        |3            |16          |45        
+103        |3            |16          |46        
+105        |1            |17          |47        
+106        |1            |17          |48        
+108        |2            |17          |50        
+109        |0            |18          |51        
+111        |1            |18          |52        
+111        |1            |18          |52        
+111        |3            |18          |53        
+109        |4            |18          |54        
+108        |4            |19          |54        
+107        |3            |19          |56        
+106        |3            |19          |57        
+104        |5            |19          |57        
+103        |5            |19          |58        
+101        |4            |19          |59        
+100        |5            |19          |61        
+98         |5            |19          |61        
+97         |4            |19          |63        
+96         |5            |19          |65        
+95         |5            |19          |66        
+93         |4            |19          |67        
+92         |5            |19          |69        
+91         |5            |19          |70        
+90         |5            |19          |71        
+88         |4            |19          |72        
+87         |3            |20          |73        
+86         |4            |20          |75        
+84         |6            |21          |75        
+82         |7            |21          |75        
+80         |9            |22          |75        
+76         |10           |24          |76        
+73         |10           |24          |76        
+72         |12           |24          |77        
+71         |11           |24          |79        
+70         |11           |24          |80        
+68         |12           |24          |81        
+66         |12           |24          |81        
+65         |14           |25          |82        
+63         |13           |25          |84        
+61         |15           |25          |84        
+60         |15           |25          |85        
+59         |16           |25          |85        
+58         |16           |25          |86        
+57         |15           |26          |87        
+56         |13           |28          |88        
+55         |11           |28          |89        
+54         |12           |28          |91        
+52         |12           |28          |91        
+51         |12           |28          |92        
+50         |13           |28          |94        
+47         |13           |29          |94        
+46         |14           |29          |96        
+45         |14           |29          |97        
+44         |13           |29          |99        
+41         |12           |30          |100       
+40         |14           |30          |101       
+39         |14           |30          |102       
+37         |15           |30          |103       
+36         |14           |30          |105       
+35         |14           |30          |106       
+34         |13           |31          |107       
+32         |15           |31          |107       
+31         |15           |31          |108       
+29         |15           |31          |108       
+28         |16           |32          |110       
+25         |16           |32          |110       
+24         |18           |32          |111       
+22         |17           |32          |112       
+21         |18           |33          |114       
+19         |17           |33          |116       
+18         |18           |33          |116       
+16         |17           |33          |117       
+15         |19           |33          |118       
+14         |18           |33          |120       
+12         |17           |33          |121       
+11         |18           |33          |123       
+10         |18           |33          |124       
+9          |18           |33          |125       
+7          |17           |34          |125       
+6          |16           |34          |127       
+5          |18           |34          |128       
+3          |17           |34          |129       
+2          |17           |34          |130       
+1          |18           |35          |132       
+0          |19           |35          |132       
+0          |17           |35          |134       
+0          |15           |35          |135       
+0          |14           |35          |136       
+0          |13           |35          |138       
+0          |11           |35          |139       
+0          |10           |35          |141       
+0          |8            |35          |142       
+0          |7            |35          |143       
+0          |6            |35          |145       
+0          |5            |35          |145       
+0          |4            |35          |147       
+0          |2            |35          |148       
+0          |1            |35          |149       
+0          |0            |35          |150       
+0          |0            |35          |151       
+Duración: 32.075 |  Ocupación Total: 81.18279569892472

@@ -51,11 +51,6 @@ public class ProcesoDeReserva implements Runnable, Proceso {
             }
         }
     }
-
-    @Override
-    public void esperar() {
-
-    }
 }
 
 

@@ -42,8 +42,4 @@ public class ProcesoDePago implements Runnable, Proceso{
         gestorDeReservas.confirmarPago();
     }
 
-    @Override
-    public void esperar() {
-
-    }
 }

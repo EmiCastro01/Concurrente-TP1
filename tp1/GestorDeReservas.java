@@ -45,6 +45,10 @@ public class GestorDeReservas {
         return reservasVerificadas;
     }
 
+    public int getMilisProcesoReserva(){return milisProcesoReserva;}
+    public int getMilisProcesoPago(){return milisProcesoPago;}
+    public int getMilisProcesoCancelacion(){return milisProcesoCancelacion;}
+    public int getMilisProcesoVerificacion(){return milisProcesoVerificacion;}
     public void printReservasPendientesDePago(){
         String s = " ";
         for (Reserva r :

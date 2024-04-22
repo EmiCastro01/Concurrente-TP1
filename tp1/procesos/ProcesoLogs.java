@@ -47,6 +47,17 @@ public class ProcesoLogs  implements Runnable{
         PrintLogLine();
     }
 
+    public void imprimirTiemposPorProceso(){
+        WriteInFile("Tiempos por proceso");
+        WriteInFile("Reserva | Confirmación Pagos | Cancelación | Validación");
+        WriteInFile(String.format("%s|%s|%s|%s",
+                padRigth(GestorReservas.getMilisProcesoReserva() + "ms", 8, ' ' ),
+                padRigth(GestorReservas.getMilisProcesoPago()+ "ms", 20, ' '),
+                padRigth(GestorReservas.getMilisProcesoCancelacion()+ "ms", 13, ' ' ),
+                padRigth(GestorReservas.getMilisProcesoVerificacion()+ "ms", 11, ' ')));
+        WriteInFile("");
+    }
+
     public void PrintLogLine(){
         if(printHeader){
             WriteInFile("Reservadas | Confirmadas | Canceladas | Aprobadas");

@@ -20,10 +20,11 @@ import java.util.concurrent.TimeUnit;
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
-        var demoraProcesoReserva = obtenerDemoraParaProceso();
-        var demoraProcesoPagos = obtenerDemoraParaProceso();
-        var demoraProcesoCancelacion = obtenerDemoraParaProceso();
-        var demoraProcesoVerificacion = obtenerDemoraParaProceso();
+        var aleatorio = false;
+        var demoraProcesoReserva = aleatorio ? obtenerDemoraParaProceso() : 60;
+        var demoraProcesoPagos = aleatorio ? obtenerDemoraParaProceso() : 20;
+        var demoraProcesoCancelacion = aleatorio ? obtenerDemoraParaProceso() : 30;
+        var demoraProcesoVerificacion = aleatorio ? obtenerDemoraParaProceso() : 80;
         GestorDeReservas gestorReservas = new GestorDeReservas(demoraProcesoReserva, demoraProcesoPagos, demoraProcesoCancelacion, demoraProcesoVerificacion);
 
         Instant start = Instant.now();
@@ -33,6 +34,7 @@ public class Main {
         //Hilo Archivo Log
 
         ProcesoLogs procesoLog = new ProcesoLogs(gestorReservas);
+        procesoLog.imprimirTiemposPorProceso();
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         executor.scheduleAtFixedRate(procesoLog, 0, 200, TimeUnit.MILLISECONDS);
 
@@ -45,9 +47,9 @@ public class Main {
         threads.add(new Thread(new ProcesoDePago(gestorReservas), "Pago1"));
         threads.add(new Thread(new ProcesoDePago(gestorReservas), "Pago2"));
 //        //Hilos de Cancelación
-        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas, demoraProcesoCancelacion), "Cancelacion1"));
-        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas, demoraProcesoCancelacion), "Cancelacion2"));
-        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas, demoraProcesoCancelacion), "Cancelacion3"));
+        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas), "Cancelacion1"));
+        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas), "Cancelacion2"));
+        threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas), "Cancelacion3"));
 //        //Hilos de Verificación
         threads.add(new Thread(new ProcesoDeVerificacion(gestorReservas), "Verificacion1"));
         threads.add(new Thread(new ProcesoDeVerificacion(gestorReservas), "Verificacion2"));
@@ -76,6 +78,6 @@ public class Main {
 
     public static int obtenerDemoraParaProceso(){
         Random random = new Random();
-        return random.nextInt(80,110);
+        return random.nextInt(40,130);
     }
 }
