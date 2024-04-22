@@ -2,5 +2,5 @@
 .idea
 out
 tp1/out
-logs
+logs/*.txt
 tp1/.idea/*
