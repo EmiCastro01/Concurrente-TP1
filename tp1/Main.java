@@ -20,14 +20,14 @@ import java.util.concurrent.TimeUnit;
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
+        Instant start = Instant.now();
+
         var aleatorio = false;
         var demoraProcesoReserva = aleatorio ? obtenerDemoraParaProceso() : 60;
-        var demoraProcesoPagos = aleatorio ? obtenerDemoraParaProceso() : 20;
+        var demoraProcesoPagos = aleatorio ? obtenerDemoraParaProceso() : 130;
         var demoraProcesoCancelacion = aleatorio ? obtenerDemoraParaProceso() : 30;
         var demoraProcesoVerificacion = aleatorio ? obtenerDemoraParaProceso() : 80;
         GestorDeReservas gestorReservas = new GestorDeReservas(demoraProcesoReserva, demoraProcesoPagos, demoraProcesoCancelacion, demoraProcesoVerificacion);
-
-        Instant start = Instant.now();
 
         ArrayList<Thread> threads = new ArrayList<Thread>();
 
@@ -46,11 +46,11 @@ public class Main {
         //Hilos de Pago
         threads.add(new Thread(new ProcesoDePago(gestorReservas), "Pago1"));
         threads.add(new Thread(new ProcesoDePago(gestorReservas), "Pago2"));
-//        //Hilos de Cancelación
+        //Hilos de Cancelación
         threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas), "Cancelacion1"));
         threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas), "Cancelacion2"));
         threads.add(new Thread(new ProcesoDeCancelacion(gestorReservas), "Cancelacion3"));
-//        //Hilos de Verificación
+        //Hilos de Verificación
         threads.add(new Thread(new ProcesoDeVerificacion(gestorReservas), "Verificacion1"));
         threads.add(new Thread(new ProcesoDeVerificacion(gestorReservas), "Verificacion2"));
 
