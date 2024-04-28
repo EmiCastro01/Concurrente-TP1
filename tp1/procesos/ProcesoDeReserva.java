@@ -22,7 +22,8 @@ public class ProcesoDeReserva implements Runnable, Proceso {
 
     /**
      * Constructor para la clase ProcesoDeReserva.
-     * Inicializa el proceso con un gestor de reservas y una lista de asientos posibles a reservar.
+     * Inicializa el proceso con un gestor de reservas y una lista de 
+     * asientos posibles a reservar.
      *
      * @param gestorDeReservas El gestor de reservas.
      */
@@ -33,7 +34,8 @@ public class ProcesoDeReserva implements Runnable, Proceso {
 
     /**
      * El método run se invoca cuando se inicia el hilo que ejecuta este proceso.
-     * Mientras el método validarSiContinua devuelva verdadero, el proceso seguirá realizando reservas.
+     * Mientras el método validarSiContinua devuelva verdadero, el proceso seguirá 
+     * tratando de realizar reservas.
      */
     @Override
     public void run() {
@@ -44,7 +46,8 @@ public class ProcesoDeReserva implements Runnable, Proceso {
 
     /**
      * Verifica si el proceso puede continuar realizando reservas.
-     * El proceso puede continuar si el gestor de reservas puede gestionar más asientos.
+     * El proceso puede continuar si el gestor de reservas puede gestionar más asientos
+     * libres en el avion.
      *
      * @return Verdadero si el proceso puede continuar, falso en caso contrario.
      */
@@ -54,12 +57,17 @@ public class ProcesoDeReserva implements Runnable, Proceso {
     }
 
     /**
-     * Realiza el proceso de reserva.
-     * Primero, genera una lista de asientos posibles a reservar.
-     * Luego, selecciona un asiento al azar y trata de generar una reserva para ese asiento.
-     * Si la reserva no se puede generar (por ejemplo, si el asiento ya está reservado), 
-     * el asiento se elimina de la lista de asientos posibles y el proceso se repite.
-     */
+    * El método procesar se encarga de realizar una reserva de asiento en el avión.
+    * Primero, genera una lista de asientos posibles a reservar utilizando un IntStream.
+    * Esta lista representa todos los asientos disponibles en el avión.
+    * Luego, entra en un bucle que continúa hasta que se genera una reserva con éxito o 
+    * hasta que el método validarSiContinua() devuelve false.
+    * Dentro del bucle, selecciona un asiento al azar de la lista de asientos posibles 
+    * y trata de generar una reserva para ese asiento.
+    * Si la reserva se genera con éxito, se almacena en la variable reserva y el bucle termina.
+    * Si la reserva no se puede generar (por ejemplo, si el asiento ya está reservado),
+    * el asiento se elimina de la lista de asientos posibles y el bucle continúa con la siguiente iteración.
+    **/
     @Override
     public void procesar() {
         asientosPosibles = IntStream.iterate(0, i -> i + 1)
