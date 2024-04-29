@@ -32,15 +32,26 @@ public class ProcesoLogs  implements Runnable{
      */
     public ProcesoLogs(tp1.GestorDeReservas gestorReservas){
 
+        // Asigna el objeto gestorReservas al atributo GestorReservas de la clase.
         GestorReservas = gestorReservas;
+        // Genera un nombre para el archivo de log basado en la fecha y hora actuales.
+        // Utiliza el formato "yyyyMMdd_HHmmss" para la fecha y hora, y añade "_log.txt" al final.
         filePath = String.format("%s_log.txt", DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss").format(LocalDateTime.now()));
+        // Obtiene el directorio actual del sistema. Este es el directorio donde se está ejecutando el programa.
         String localDir = System.getProperty("user.dir");
+        // Combina el directorio actual, el nombre de la carpeta "logs" y el nombre del archivo de log para crear la ruta completa del archivo de log.
+        // Por ejemplo, si el directorio actual es "C:\Users\Usuario\Documents\Proyecto", la ruta del archivo de log será "C:\Users\Usuario\Documents\Proyecto\logs\"yyyyMMdd_HHmmss"_log.txt".
         filePath = String.format("%s\\%s\\%s",localDir,folder,filePath);
+        // Crea un objeto File con la ruta del archivo de log. Este objeto se utilizará para interactuar con el archivo de log.
         file = new File(filePath);
+        // Obtiene la ruta absoluta del archivo de log y la imprime en la consola.
+        // La ruta absoluta es la ruta completa del archivo, incluyendo el directorio raíz.
         String basePath = file.getAbsolutePath();
         System.out.println(basePath);
 
+        // Comprueba si el archivo de log ya existe.
         if(!file.exists()){
+            // Si el archivo de log no existe, intenta crearlo.
             try {
                 file.createNewFile();
             } catch (IOException e) {
